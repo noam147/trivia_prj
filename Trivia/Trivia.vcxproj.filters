@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Exceptions">
+      <UniqueIdentifier>{8675a7e2-0469-4a71-b8e6-05f14350bac6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IRequestHandler.h">
@@ -29,6 +32,15 @@
     </ClInclude>
     <ClInclude Include="RequestHandleFactory.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerConnectionError.hpp">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseException.hpp">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerOpenSocketError.hpp">
+      <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
