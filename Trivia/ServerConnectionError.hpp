@@ -2,5 +2,5 @@
 #include "BaseException.hpp"
 class ServerConnectionError : protected BaseException {
 public:
-	ServerConnectionError(): BaseException("Error: Server connection with client cut off") {};
+	ServerConnectionError(const std::string& funcName): BaseException("Error:  " + funcName + "Server connection with client cut off") {};
 };

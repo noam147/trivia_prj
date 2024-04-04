@@ -22,11 +22,12 @@ public:
 private:
 	// member methods
 	void bindAndListen();
-	void handleNewClient();
+	void handleClient(SOCKET sock);
+	void acceptNewClient();
 
 	// member variubles
 	std::unordered_map<SOCKET, IRequestHandler> m_clients;
-	RequestHandleFactory& m_handleFactory;
+	//RequestHandleFactory& m_handleFactory;
 	SOCKET m_serverSocket;
 	
 	// lockers

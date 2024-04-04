@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseException.hpp"
-class ServerConnectionError : protected BaseException {
+class ServerOpenSocketError : protected BaseException {
 public:
-	ServerConnectionError() : BaseException("Error: Server cannot open listening socket") {};
+	ServerOpenSocketError(const std::string& funcName) : BaseException("Error: " + funcName + ":Server cannot open listening socket") {};
 };

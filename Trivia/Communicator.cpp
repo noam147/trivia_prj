@@ -1,5 +1,8 @@
 #include "Communicator.h"
 #include <exception>
+#include "ServerConnectionError.hpp"
+#include "ServerOpenSocketError.hpp"
+#include "RequestHandleFactory.h"
 #include <iostream>
 #include <string>
 #include <numeric>
@@ -14,39 +17,62 @@ using std::unique_lock;
 
 
 Communicator::Communicator()
+	:m_serverSocket(INVALID_SOCKET)
 {
-	 = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (_socket == INVALID_SOCKET)
-		throw std::error;
+	m_serverSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (m_serverSocket == INVALID_SOCKET)
+		throw ServerConnectionError(__FUNCTION__);
 }
 
 Communicator::~Communicator()
 {
-	TRACE(__FUNCTION__ " closing accepting socket");
-	// why is this try necessarily ?
 	try
 	{
-		// the only use of the destructor should be for freeing 
-		// resources that was allocated in the constructor
-		::closesocket(_socket);
+		::closesocket(m_serverSocket);
 	}
 	catch (...) {}
 }
 
-void MagshMessageServer::serve()
+
+void Communicator::startHandleRequests()
 {
 	bindAndListen();
 
-	// create new thread for handling message
-	std::thread tr(&MagshMessageServer::handleReceivedMessages, this);
-	tr.detach();
-
 	while (true)
 	{
-		// the main thread is only accepting clients 
-		// and add then to the list of handlers
-		TRACE("accepting client...");
-		acceptClient();
+		//accepting clients
+		this->acceptNewClient();
 	}
 }
 
+void Communicator::bindAndListen()
+{
+
+	struct sockaddr_in sa = { 0 };
+	sa.sin_port = htons(PORT);
+	sa.sin_family = AF_INET;
+	sa.sin_addr.s_addr = IFACE;
+	// again stepping out to the global namespace
+	if (::bind(m_serverSocket, (struct sockaddr*)&sa, sizeof(sa)) == SOCKET_ERROR)
+		throw ServerOpenSocketError(__FUNCTION__);
+
+	if (::listen(m_serverSocket, SOMAXCONN) == SOCKET_ERROR)
+		throw ServerOpenSocketError(__FUNCTION__);
+
+}
+
+void Communicator::handleClient(SOCKET client_sock)
+{
+
+}
+
+void Communicator::acceptNewClient()
+{
+	SOCKET client_socket = accept(m_serverSocket, NULL, NULL);
+	if (client_socket == INVALID_SOCKET)
+		throw std::exception(__FUNCTION__);
+
+	// create new thread for client	and detach from it
+	std::thread tr(&Communicator::handleClient, this, client_socket);
+	tr.detach();
+}
