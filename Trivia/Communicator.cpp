@@ -1,8 +1,9 @@
 #include "Communicator.h"
-#include <exception>
+#include "CommunicationHelper.h"
 #include "ServerConnectionError.hpp"
 #include "ServerOpenSocketError.hpp"
 #include "RequestHandleFactory.h"
+#include <exception>
 #include <iostream>
 #include <string>
 #include <numeric>
@@ -58,7 +59,7 @@ void Communicator::bindAndListen()
 
 	if (::listen(m_serverSocket, SOMAXCONN) == SOCKET_ERROR)
 		throw ServerOpenSocketError(__FUNCTION__);
-
+	CommunicationHelper
 }
 
 void Communicator::handleClient(SOCKET client_sock)
@@ -70,7 +71,7 @@ void Communicator::acceptNewClient()
 {
 	SOCKET client_socket = accept(m_serverSocket, NULL, NULL);
 	if (client_socket == INVALID_SOCKET)
-		throw std::exception(__FUNCTION__);
+		throw ServerConnectionError(__FUNCTION__);
 
 	// create new thread for client	and detach from it
 	std::thread tr(&Communicator::handleClient, this, client_socket);

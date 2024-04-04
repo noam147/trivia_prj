@@ -27,7 +27,7 @@
     <ClInclude Include="Communicator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ComunicateHelper.h">
+    <ClInclude Include="CommunicationHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RequestHandleFactory.h">
@@ -53,7 +53,7 @@
     <ClCompile Include="Communicator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ComunicateHelper.cpp">
+    <ClCompile Include="CommunicationHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RequestHandleFactory.cpp">

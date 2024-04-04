@@ -1,6 +1,5 @@
 #pragma once
 
-#include "ComunicateHelper.h"
 #include "IRequestHandler.h"
 #include <string>
 #include <mutex>
@@ -21,9 +20,9 @@ public:
 
 private:
 	// member methods
-	void bindAndListen();
-	void handleClient(SOCKET sock);
-	void acceptNewClient();
+	void bindAndListen(); // opens a listening socket
+	void handleClient(SOCKET sock); // handles client conversation
+	void acceptNewClient(); // handles client waiting for connection
 
 	// member variubles
 	std::unordered_map<SOCKET, IRequestHandler> m_clients;
