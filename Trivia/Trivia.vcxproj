@@ -127,12 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Communicator.h" />
+    <ClInclude Include="ComunicateHelper.h" />
     <ClInclude Include="IRequestHandler.h" />
     <ClInclude Include="LoginRequestHandler.h" />
+    <ClInclude Include="RequestHandleFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Communicator.cpp" />
+    <ClCompile Include="ComunicateHelper.cpp" />
     <ClCompile Include="IRequestHandler.cpp" />
     <ClCompile Include="LoginRequestHandler.cpp" />
+    <ClCompile Include="RequestHandleFactory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
