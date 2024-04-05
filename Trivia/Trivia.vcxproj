@@ -135,12 +135,15 @@
     <ClInclude Include="RequestHandleFactory.h" />
     <ClInclude Include="ServerConnectionError.hpp" />
     <ClInclude Include="ServerOpenSocketError.hpp" />
+    <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\ProjectServer\WSAInitializer.cpp" />
     <ClCompile Include="Communicator.cpp" />
     <ClCompile Include="CommunicationHelper.cpp" />
     <ClCompile Include="IRequestHandler.cpp" />
     <ClCompile Include="LoginRequestHandler.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="RequestHandleFactory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

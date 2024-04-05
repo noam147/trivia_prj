@@ -30,8 +30,8 @@ private:
 	SOCKET m_serverSocket;
 	
 	// lockers
-	std::mutex _mtxReceivedMessages;
-	std::condition_variable _msgQueueCondition;
+	std::mutex m_mtx;
+	std::condition_variable m_condition;
 
 };
 

@@ -6,11 +6,10 @@
 #include <exception>
 #include <iostream>
 #include <string>
-#include <numeric>
 
-// using static const instead of macros 
-static const unsigned short PORT = 8826;
+static const unsigned short PORT = 55555;
 static const unsigned int IFACE = 0;
+static const byte MESSAGE_LENGTH = 4;
 
 using std::string;
 using std::mutex;
@@ -59,12 +58,31 @@ void Communicator::bindAndListen()
 
 	if (::listen(m_serverSocket, SOMAXCONN) == SOCKET_ERROR)
 		throw ServerOpenSocketError(__FUNCTION__);
-	CommunicationHelper
 }
 
 void Communicator::handleClient(SOCKET client_sock)
 {
+	std::string msg = "";
+	try
+	{
+		do
+		{
+			CommunicationHelper::sendHello(client_sock);
 
+			unsigned int message_length = CommunicationHelper::getIntPartFromSocket(m_serverSocket, sizeof(byte) * MESSAGE_LENGTH);
+			msg = CommunicationHelper::getStringPartFromSocket(m_serverSocket, message_length);
+
+			std::lock_guard<std::mutex> locker(m_mtx);
+			std::cout << "Client: " << msg;
+		}
+		while (msg != "exit");
+
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "Error cached while communicating";
+	}
+	closesocket(client_sock);
 }
 
 void Communicator::acceptNewClient()

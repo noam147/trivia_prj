@@ -31,7 +31,7 @@ class CommunicationHelper
 {
 public:
 	static int getMessageTypeCode(const SOCKET sc);
-	void sendHello(SOCKET sc);
+	static void sendHello(SOCKET sc);
 	static int getIntPartFromSocket(const SOCKET sc, const int bytesNum);
 	static std::string getStringPartFromSocket(SOCKET sc, const int bytesNum);
 	static void sendData(const SOCKET sc, const std::string message);
