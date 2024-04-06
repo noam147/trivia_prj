@@ -69,18 +69,18 @@ void Communicator::handleClient(SOCKET client_sock)
 		{
 			CommunicationHelper::sendHello(client_sock);
 
-			unsigned int message_length = CommunicationHelper::getIntPartFromSocket(m_serverSocket, sizeof(byte) * MESSAGE_LENGTH);
-			msg = CommunicationHelper::getStringPartFromSocket(m_serverSocket, message_length);
+			unsigned int message_length = CommunicationHelper::getIntPartFromSocket(client_sock, sizeof(byte) * MESSAGE_LENGTH);
+			msg = CommunicationHelper::getStringPartFromSocket(client_sock, message_length);
 
 			std::lock_guard<std::mutex> locker(m_mtx);
-			std::cout << "Client: " << msg;
+			std::cout << "Client: " << msg << std::endl;
 		}
 		while (msg != "exit");
 
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << "Error cached while communicating";
+		std::cout << "Error: " << e.what() << std::endl;
 	}
 	closesocket(client_sock);
 }

@@ -22,9 +22,11 @@ def handleSession():
 
             # Send message
             message = input("Enter message to send (type 'exit' to quit): ")
+            if len(message) > 2**32:
+                continue
             if message.lower() == 'exit':
                 break
-            message = "{:03d}".format(len(message)) + message
+            message = "{:04d}".format(len(message)) + message
             sock.sendall(message.encode())
 
     except socket.timeout:
