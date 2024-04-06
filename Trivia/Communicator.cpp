@@ -36,13 +36,18 @@ Communicator::~Communicator()
 
 void Communicator::startHandleRequests()
 {
-	bindAndListen();
 
-	while (true)
+	bindAndListen();
+	
+	std::thread tr(&Communicator::acceptNewClients, this);
+	tr.detach();
+	std::string cliStatment = "";
+	do
 	{
-		//accepting clients
-		this->acceptNewClient();
-	}
+		std::cin >> cliStatment;
+		if (cliStatment != "EXIT")
+			std::cout << cliStatment << " is not a command" << std::endl;
+	} while (cliStatment != "EXIT");
 }
 
 void Communicator::bindAndListen()
@@ -71,9 +76,6 @@ void Communicator::handleClient(SOCKET client_sock)
 
 			unsigned int message_length = CommunicationHelper::getIntPartFromSocket(client_sock, sizeof(byte) * MESSAGE_LENGTH);
 			msg = CommunicationHelper::getStringPartFromSocket(client_sock, message_length);
-
-			std::lock_guard<std::mutex> locker(m_mtx);
-			std::cout << "Client: " << msg << std::endl;
 		}
 		while (msg != "exit");
 
@@ -85,13 +87,15 @@ void Communicator::handleClient(SOCKET client_sock)
 	closesocket(client_sock);
 }
 
-void Communicator::acceptNewClient()
+void Communicator::acceptNewClients()
 {
-	SOCKET client_socket = accept(m_serverSocket, NULL, NULL);
-	if (client_socket == INVALID_SOCKET)
-		throw ServerConnectionError(__FUNCTION__);
+	while (true) {
+		SOCKET client_socket = accept(m_serverSocket, NULL, NULL);
+		if (client_socket == INVALID_SOCKET)
+			throw ServerConnectionError(__FUNCTION__);
 
-	// create new thread for client	and detach from it
-	std::thread tr(&Communicator::handleClient, this, client_socket);
-	tr.detach();
+		// create new thread for client	and detach from it
+		std::thread tr(&Communicator::handleClient, this, client_socket);
+		tr.detach();
+	}
 }

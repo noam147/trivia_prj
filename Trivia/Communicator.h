@@ -22,7 +22,7 @@ private:
 	// member methods
 	void bindAndListen(); // opens a listening socket
 	void handleClient(SOCKET sock); // handles client conversation
-	void acceptNewClient(); // handles client waiting for connection
+	void acceptNewClients(); // handles client waiting for connection
 
 	// member variubles
 	std::unordered_map<SOCKET, IRequestHandler> m_clients;
