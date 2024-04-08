@@ -19,13 +19,17 @@ def handleSession():
             # Receive server's message
             server_msg = sock.recv(1024).decode()
             print("Server:", server_msg)
-
+            example_msgs = ["""10051{"password":"1234","username":"user1"}""","""20080{"password":"1234","username":"user1","email":"1234567@gmail.com"}"""]
             # Send message
             message = input("Enter message to send (type 'exit' to quit): ")
             if len(message) > 2**32:
                 continue
             if message.lower() == 'exit':
                 break
+            try:
+                message = example_msgs[int(message)]
+            except Exception:
+                pass
             message = "{:04d}".format(len(message)) + message
             sock.sendall(message.encode())
 
