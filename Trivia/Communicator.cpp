@@ -68,14 +68,60 @@ void Communicator::bindAndListen()
 void Communicator::handleClient(SOCKET client_sock)
 {
 	std::string msg = "";
+	std::string msgToSend = "nothing to show here";
 	try
 	{
 		do
 		{
-			CommunicationHelper::sendHello(client_sock);
+			CommunicationHelper::sendData(client_sock, msgToSend);
+			msgToSend = "invalid msg";
+			
+			//CommunicationHelper::sendHello(client_sock);
 
 			unsigned int message_length = CommunicationHelper::getIntPartFromSocket(client_sock, sizeof(byte) * MESSAGE_LENGTH);
 			msg = CommunicationHelper::getStringPartFromSocket(client_sock, message_length);
+			std::cout << message_length;
+			if (msg[0] == LOGIN_REQUEST)
+			{
+				try
+				{
+					LoginRequest loginReq = JsonRequestPacketDeserializer::deserializeLoginRequest(msg.c_str());
+					//std::cout << "user name: " << loginReq.userName << " password: " << loginReq.password << "\n";
+					LoginResponse logResponse;
+					logResponse.status = 1;
+					msgToSend = JsonResponsePacketSerializer::serializeResponse(logResponse);
+				}
+				catch (const RequestError& e)
+				{
+					std::cout << "error\n";
+				}
+				catch (...)
+				{
+
+				}
+			}
+			else if (msg[0] == SIGN_UP_REQUEST)
+			{
+				try
+				{
+					SignupRequest signRequest =	JsonRequestPacketDeserializer::deserializeSignupRequest(msg.c_str());
+					//std::cout << "user name: " << signRequest.userName << " password: " << signRequest.password << "mail: "<<signRequest.email<<"\n";
+					SignupResponse signResponse;
+					signResponse.status = 1;
+					msgToSend = JsonResponsePacketSerializer::serializeResponse(signResponse);
+
+				}
+				catch (const RequestError& e)
+				{
+					std::cout << "error\n";
+				}
+				catch (...)
+				{
+
+				}
+			}
+			
+			
 		}
 		while (msg != "exit");
 
