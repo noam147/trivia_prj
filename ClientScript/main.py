@@ -4,7 +4,7 @@ import json
 
 SERVER_IP = "127.0.0.1"
 SERVER_PORT = 55555
-MESSAGE_TYPE = {'\x1': Mf.SignupMessage, 2: Mf.LoginMessage}
+MESSAGE_TYPE = {'\1': Mf.SignupMessage, '\2': Mf.LoginMessage}
 
 
 def formatJSON(msg_type: chr):
@@ -13,7 +13,6 @@ def formatJSON(msg_type: chr):
     :param msg_type: int, the type(id) of the message
     :return: str, the message data as json or None, failed
     """
-    print(msg_type in MESSAGE_TYPE)
     if msg_type in MESSAGE_TYPE:
         msg_class = MESSAGE_TYPE[msg_type]
         # checks if the arguments given are valid using exception handling
@@ -51,7 +50,7 @@ def createMessage():
     if msg_type is None:
         print("Message type isn't valid")
         return None
-    msg_data = formatJSON(int(msg_type))
+    msg_data = formatJSON(msg_type)
     if msg_data is None:
         print("data given isn't valid")
         return None
