@@ -4,10 +4,10 @@ import json
 
 SERVER_IP = "127.0.0.1"
 SERVER_PORT = 55555
-MESSAGE_TYPE = {1: Mf.SignupMessage, 2: Mf.LoginMessage}
+MESSAGE_TYPE = {'\x1': Mf.SignupMessage, 2: Mf.LoginMessage}
 
 
-def formatJSON(msg_type: int):
+def formatJSON(msg_type: chr):
     """
     the function gets the msg wanted and results in the msg data as jason
     :param msg_type: int, the type(id) of the message
@@ -29,11 +29,11 @@ def formatJSON(msg_type: int):
 def getMessageType():
     """
     gets the type of the message from the client
-    :return: int, message type or None, failed
+    :return: chr, message type or None, failed
     """
     msgType = 0
     try:
-        msgType = int(input("Enter message type: "))
+        msgType = chr(int(input("Enter message type: ")))
     except ValueError:
         return None
     if msgType not in MESSAGE_TYPE:
@@ -51,16 +51,15 @@ def createMessage():
     if msg_type is None:
         print("Message type isn't valid")
         return None
-    msg_data = formatJSON(msg_type)
+    msg_data = formatJSON(int(msg_type))
     if msg_data is None:
         print("data given isn't valid")
         return None
-    msg_type = "{:03d}".format(msg_type)
-    if len(msg_type) + len(msg_data) > 2**32:
+    if chr.__sizeof__() + len(msg_data) > 9999:
         print("Message is too long")
         return None
     msg_len = "{:04d}".format(len(msg_type) + len(msg_data))
-    msg = msg_len + msg_type + msg_data
+    msg = msg_type + msg_len + msg_data
     return msg
 
 
