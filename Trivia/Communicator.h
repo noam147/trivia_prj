@@ -7,7 +7,8 @@
 #include <WinSock2.h>
 #include <unordered_map>
 #include "RequestHandleFactory.h"
-
+#include "JsonRequestPacketDeserializer.h"
+#include "JsonResponsePacketSerializer.h"
 class Communicator
 {
 public:
@@ -25,7 +26,7 @@ private:
 	void acceptNewClients(); // handles client waiting for connection
 
 	// member variubles
-	std::unordered_map<SOCKET, IRequestHandler> m_clients;
+	std::unordered_map<SOCKET, IRequestHandler*> m_clients;//fixed
 	//RequestHandleFactory& m_handleFactory;
 	SOCKET m_serverSocket;
 	
