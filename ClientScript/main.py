@@ -1,7 +1,67 @@
 import socket
+import MessagesFormats as Mf
+import json
 
 SERVER_IP = "127.0.0.1"
 SERVER_PORT = 55555
+MESSAGE_TYPE = {1: Mf.SignupMessage, 2: Mf.LoginMessage}
+
+
+def formatJSON(msg_type: int):
+    """
+    the function gets the msg wanted and results in the msg data as jason
+    :param msg_type: int, the type(id) of the message
+    :return: str, the message data as json or None, failed
+    """
+    print(msg_type in MESSAGE_TYPE)
+    if msg_type in MESSAGE_TYPE:
+        msg_class = MESSAGE_TYPE[msg_type]
+        # checks if the arguments given are valid using exception handling
+        try:
+            msg = msg_class()
+        except TypeError:
+            return None
+        json_msg = json.dumps(msg.__dict__)
+        return json_msg
+    return None
+
+
+def getMessageType():
+    """
+    gets the type of the message from the client
+    :return: int, message type or None, failed
+    """
+    msgType = 0
+    try:
+        msgType = int(input("Enter message type: "))
+    except ValueError:
+        return None
+    if msgType not in MESSAGE_TYPE:
+        print(str(msgType) + " is not a valid type")
+        return None
+    return msgType
+
+
+def createMessage():
+    """
+    formats a message with data given from the user
+    :return: str, the message or None, failed
+    """
+    msg_type = getMessageType()
+    if msg_type is None:
+        print("Message type isn't valid")
+        return None
+    msg_data = formatJSON(msg_type)
+    if msg_data is None:
+        print("data given isn't valid")
+        return None
+    msg_type = "{:03d}".format(msg_type)
+    if len(msg_type) + len(msg_data) > 2**32:
+        print("Message is too long")
+        return None
+    msg_len = "{:04d}".format(len(msg_type) + len(msg_data))
+    msg = msg_len + msg_type + msg_data
+    return msg
 
 
 def handleSession():
@@ -21,12 +81,12 @@ def handleSession():
             print("Server:", server_msg)
 
             # Send message
-            message = input("Enter message to send (type 'exit' to quit): ")
-            if len(message) > 2**32:
+            message = createMessage()
+            if message is None:
                 continue
-            if message.lower() == 'exit':
+            if message.lower()[6:] == 'exit':
                 break
-            message = "{:04d}".format(len(message)) + message
+            print("client: " + message)
             sock.sendall(message.encode())
 
     except socket.timeout:
@@ -41,4 +101,5 @@ def handleSession():
 
 
 if __name__ == "__main__":
+    # handleSession()
     handleSession()

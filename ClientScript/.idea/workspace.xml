@@ -5,81 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d24b13b-7922-4059-91be-4f2af689fc15" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/ClientScript.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ClientScriptTesting/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ClientScriptTesting/.idea/ServerScriptTesting.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ClientScriptTesting/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ClientScriptTesting/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ClientScriptTesting/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ClientScriptTesting/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ClientScriptTesting/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ClientScriptTesting/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/34258262-506b-42b7-9528-a1f5a7c9956c.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/3caef75d-7bf8-45ac-8280-aaced6716514.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/440c4b77-4b60-472e-9f37-d2a606b193d7.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/5b2f1b44-ccea-4a27-8780-2fcb0f5d858d.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/ba55a6b9-a126-47a1-8e8e-c0d6c87a3acf.vsidx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/.suo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/Browse.VC.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/1f71bd4d8e60169/MAIN.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/32a894a138f35da8/LOGINREQUESTHANDLER.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/36143329304a5206/IREQUESTHANDLER.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/39fe82cb16c29d9d/MAIN.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/70c333947f9324af/COMMUNICATOR.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/7ebe738a8c559c6e/COMUNICATEHELPER.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/81ff7881e551c886/COMMUNICATIONHELPER.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/8db2de7fae50a7e3/SERVEROPENSOCKETERROR.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/9c2263f8ff5eec5f/REQUESTHANDLEFACTORY.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/c1366765ebf4fe79/BASEEXCEPTION.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/eb4c0972c64d4248/SERVERCONNECTIONERROR.ipch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/BaseException.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/CommunicationHelper.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/CommunicationHelper.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/Communicator.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/Communicator.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/IRequestHandler.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/IRequestHandler.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/LoginRequestHandler.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/LoginRequestHandler.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/RequestHandleFactory.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/RequestHandleFactory.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/ServerConnectionError.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/ServerOpenSocketError.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/Trivia.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/Trivia.vcxproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/Trivia.vcxproj.filters" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/Trivia.vcxproj.user" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/WSAInitializer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/WSAInitializer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/CommunicationHelper.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Communicator.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/IRequestHandler.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/LoginRequestHandler.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/RequestHandleFactory.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.exe.recipe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.ilk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/CL.command.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/CL.read.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/CL.write.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/Cl.items.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/Trivia.lastbuildstate" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.command.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.read.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.write.1.tlog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.vcxproj.FileListAbsolute.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/WSAInitializer.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/main.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/vc143.idb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/vc143.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/34258262-506b-42b7-9528-a1f5a7c9956c.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/3caef75d-7bf8-45ac-8280-aaced6716514.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/440c4b77-4b60-472e-9f37-d2a606b193d7.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/5b2f1b44-ccea-4a27-8780-2fcb0f5d858d.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/ba55a6b9-a126-47a1-8e8e-c0d6c87a3acf.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/Browse.VC.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/70c333947f9324af/COMMUNICATOR.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/70c333947f9324af/COMMUNICATOR.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.write.1.tlog" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +37,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2eYY9SQh6SDvXCc8Mug97H278ZC" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -104,9 +48,42 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging feature/ClientScriptV2"
+    "git-widget-placeholder": "feature/ClientScriptV2"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Magshimim\Desktop\magshimim_Ekronot\trivia_guy_noam_2024\ClientScript" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ClientScript" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
