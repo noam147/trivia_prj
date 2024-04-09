@@ -6,9 +6,33 @@
   <component name="ChangeListManager">
     <list default="true" id="2d24b13b-7922-4059-91be-4f2af689fc15" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/12027c5f-a7a6-4e4c-8d38-734ef437ab2f.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/21e85ace-c3db-4cf2-bf04-3bc7bb898044.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/FileContentIndex/8d716326-e255-4c08-9c13-4267ee5b1017.vsidx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/.suo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/Browse.VC.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/39fe82cb16c29d9d/MAIN.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/39fe82cb16c29d9d/MAIN.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/70c333947f9324af/COMMUNICATOR.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/.vs/Trivia/v17/ipch/AutoPCH/70c333947f9324af/COMMUNICATOR.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/CommunicationHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/CommunicationHelper.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/Communicator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/Communicator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/Trivia.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/Trivia.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/Trivia.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/Trivia.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Communicator.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Communicator.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/Cl.items.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/Cl.items.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/Trivia.tlog/link.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/main.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/main.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/vc143.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trivia/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Trivia/x64/Debug/vc143.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
