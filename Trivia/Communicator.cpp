@@ -36,18 +36,22 @@ Communicator::~Communicator()
 
 void Communicator::startHandleRequests()
 {
+	try {
+		bindAndListen();
 
-	bindAndListen();
-	
-	std::thread tr(&Communicator::acceptNewClients, this);
-	tr.detach();
-	std::string cliStatment = "";
-	do
-	{
-		std::cin >> cliStatment;
-		if (cliStatment != "EXIT")
-			std::cout << cliStatment << " is not a command" << std::endl;
-	} while (cliStatment != "EXIT");
+		std::thread tr(&Communicator::acceptNewClients, this);
+		tr.detach();
+		std::string cliStatment = "";
+		do
+		{
+			std::cin >> cliStatment;
+			if (cliStatment != "EXIT")
+				std::cout << cliStatment << " is not a command" << std::endl;
+		} while (cliStatment != "EXIT");
+	}
+	catch (const std::exception& ex) {
+		std::cout << ex.what() << std::endl;
+	}
 }
 
 void Communicator::bindAndListen()

@@ -30,16 +30,17 @@ enum MessageType : byte
 class CommunicationHelper
 {
 public:
-	static int getMessageTypeCode(const SOCKET sc);
-	static void sendHello(SOCKET sc);
-	static int getIntPartFromSocket(const SOCKET sc, const int bytesNum);
-	static std::string getStringPartFromSocket(SOCKET sc, const int bytesNum);
-	static void sendData(const SOCKET sc, const std::string message);
+	static byte getMessageTypeCode(const SOCKET& sc);
+	static void sendHello(const SOCKET& sc);
+	static unsigned int getMessageLength(const SOCKET& sc);
+	static std::string getStringPartFromSocket(const SOCKET& sc, const int bytesNum);
+	static void sendData(const SOCKET& sc, const std::string message);
 	static std::string getPaddedNumber(const int num, const int digits);
 
 private:
-	static std::string getPartFromSocket(const SOCKET sc, const int bytesNum);
-	static std::string getPartFromSocket(const SOCKET sc, const int bytesNum, const int flags);
+	static char* getCharPartFromSocket(const SOCKET& sc, int bytesNum);
+	static std::string getPartFromSocket(const SOCKET& sc, const int bytesNum);
+	static std::string getPartFromSocket(const SOCKET& sc, const int bytesNum, const int flags);
 
 };
 
