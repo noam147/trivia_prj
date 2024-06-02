@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Magshimim\\Desktop\\magshimim_Ekronot\\trivia_guy_noam_2024\\Client\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AE8D4137-58F5-43E7-9AF4-EE0606F36F01}|clientGuiTrivia.csproj|c:\\users\\magshimim\\desktop\\magshimim_ekronot\\trivia_guy_noam_2024\\client\\userwaitingroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE8D4137-58F5-43E7-9AF4-EE0606F36F01}|clientGuiTrivia.csproj|solutionrelative:userwaitingroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE8D4137-58F5-43E7-9AF4-EE0606F36F01}|clientGuiTrivia.csproj|c:\\users\\magshimim\\desktop\\magshimim_ekronot\\trivia_guy_noam_2024\\client\\userwaitingroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{AE8D4137-58F5-43E7-9AF4-EE0606F36F01}|clientGuiTrivia.csproj|solutionrelative:userwaitingroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserWaitingRoom.cs",
+              "DocumentMoniker": "C:\\Users\\Magshimim\\Desktop\\magshimim_Ekronot\\trivia_guy_noam_2024\\Client\\UserWaitingRoom.cs",
+              "RelativeDocumentMoniker": "UserWaitingRoom.cs",
+              "ToolTip": "C:\\Users\\Magshimim\\Desktop\\magshimim_Ekronot\\trivia_guy_noam_2024\\Client\\UserWaitingRoom.cs",
+              "RelativeToolTip": "UserWaitingRoom.cs",
+              "ViewState": "AQIAAEQAAAAAAAAAAAAwwFkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-02T12:46:27.741Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserWaitingRoom.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Magshimim\\Desktop\\magshimim_Ekronot\\trivia_guy_noam_2024\\Client\\UserWaitingRoom.cs",
+              "RelativeDocumentMoniker": "UserWaitingRoom.cs",
+              "ToolTip": "C:\\Users\\Magshimim\\Desktop\\magshimim_Ekronot\\trivia_guy_noam_2024\\Client\\UserWaitingRoom.cs [Design]",
+              "RelativeToolTip": "UserWaitingRoom.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-02T12:34:28.939Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
