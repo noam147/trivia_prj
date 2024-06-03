@@ -30,11 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserStatusPage));
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.GamesLabel = new System.Windows.Forms.Label();
+            this.RightAnswerLabel = new System.Windows.Forms.Label();
+            this.WrongAnswersLabel = new System.Windows.Forms.Label();
+            this.AvgTimeLabel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.TotalScoreLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -48,63 +49,63 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Your Personal Stats";
             // 
-            // label2
+            // GamesLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Franklin Gothic Heavy", 12F);
-            this.label2.ForeColor = System.Drawing.Color.Yellow;
-            this.label2.Image = ((System.Drawing.Image)(resources.GetObject("label2.Image")));
-            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Location = new System.Drawing.Point(272, 159);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(221, 30);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "       Games Played ";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.GamesLabel.AutoSize = true;
+            this.GamesLabel.BackColor = System.Drawing.Color.Transparent;
+            this.GamesLabel.Font = new System.Drawing.Font("Franklin Gothic Heavy", 12F);
+            this.GamesLabel.ForeColor = System.Drawing.Color.Yellow;
+            this.GamesLabel.Image = ((System.Drawing.Image)(resources.GetObject("GamesLabel.Image")));
+            this.GamesLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.GamesLabel.Location = new System.Drawing.Point(272, 159);
+            this.GamesLabel.Name = "GamesLabel";
+            this.GamesLabel.Size = new System.Drawing.Size(221, 30);
+            this.GamesLabel.TabIndex = 1;
+            this.GamesLabel.Text = "       Games Played ";
+            this.GamesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label3
+            // RightAnswerLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Franklin Gothic Heavy", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Lime;
-            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
-            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label3.Location = new System.Drawing.Point(272, 237);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(350, 30);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "       Number Of Right Answers ";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            this.RightAnswerLabel.AutoSize = true;
+            this.RightAnswerLabel.Font = new System.Drawing.Font("Franklin Gothic Heavy", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RightAnswerLabel.ForeColor = System.Drawing.Color.Lime;
+            this.RightAnswerLabel.Image = ((System.Drawing.Image)(resources.GetObject("RightAnswerLabel.Image")));
+            this.RightAnswerLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RightAnswerLabel.Location = new System.Drawing.Point(272, 237);
+            this.RightAnswerLabel.Name = "RightAnswerLabel";
+            this.RightAnswerLabel.Size = new System.Drawing.Size(350, 30);
+            this.RightAnswerLabel.TabIndex = 2;
+            this.RightAnswerLabel.Text = "       Number Of Right Answers ";
+            this.RightAnswerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.RightAnswerLabel.Click += new System.EventHandler(this.label3_Click);
             // 
-            // label4
+            // WrongAnswersLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Franklin Gothic Heavy", 12F);
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Image = ((System.Drawing.Image)(resources.GetObject("label4.Image")));
-            this.label4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label4.Location = new System.Drawing.Point(272, 334);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(362, 30);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "       Number Of Wrong Answers ";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.WrongAnswersLabel.AutoSize = true;
+            this.WrongAnswersLabel.Font = new System.Drawing.Font("Franklin Gothic Heavy", 12F);
+            this.WrongAnswersLabel.ForeColor = System.Drawing.Color.Red;
+            this.WrongAnswersLabel.Image = ((System.Drawing.Image)(resources.GetObject("WrongAnswersLabel.Image")));
+            this.WrongAnswersLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.WrongAnswersLabel.Location = new System.Drawing.Point(272, 334);
+            this.WrongAnswersLabel.Name = "WrongAnswersLabel";
+            this.WrongAnswersLabel.Size = new System.Drawing.Size(362, 30);
+            this.WrongAnswersLabel.TabIndex = 3;
+            this.WrongAnswersLabel.Text = "       Number Of Wrong Answers ";
+            this.WrongAnswersLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label5
+            // AvgTimeLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Franklin Gothic Heavy", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.MediumBlue;
-            this.label5.Image = ((System.Drawing.Image)(resources.GetObject("label5.Image")));
-            this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label5.Location = new System.Drawing.Point(272, 428);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(329, 30);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "       Avrage Time For Answer ";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.AvgTimeLabel.AutoSize = true;
+            this.AvgTimeLabel.Font = new System.Drawing.Font("Franklin Gothic Heavy", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AvgTimeLabel.ForeColor = System.Drawing.Color.MediumBlue;
+            this.AvgTimeLabel.Image = ((System.Drawing.Image)(resources.GetObject("AvgTimeLabel.Image")));
+            this.AvgTimeLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AvgTimeLabel.Location = new System.Drawing.Point(272, 428);
+            this.AvgTimeLabel.Name = "AvgTimeLabel";
+            this.AvgTimeLabel.Size = new System.Drawing.Size(329, 30);
+            this.AvgTimeLabel.TabIndex = 4;
+            this.AvgTimeLabel.Text = "       Avrage Time For Answer ";
+            this.AvgTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // button1
             // 
@@ -120,17 +121,31 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // TotalScoreLabel
+            // 
+            this.TotalScoreLabel.AutoSize = true;
+            this.TotalScoreLabel.Font = new System.Drawing.Font("Franklin Gothic Heavy", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalScoreLabel.ForeColor = System.Drawing.Color.Black;
+            this.TotalScoreLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TotalScoreLabel.Location = new System.Drawing.Point(273, 494);
+            this.TotalScoreLabel.Name = "TotalScoreLabel";
+            this.TotalScoreLabel.Size = new System.Drawing.Size(146, 30);
+            this.TotalScoreLabel.TabIndex = 6;
+            this.TotalScoreLabel.Text = "Total Score:";
+            this.TotalScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // UserStatusPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.ClientSize = new System.Drawing.Size(928, 744);
+            this.Controls.Add(this.TotalScoreLabel);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.AvgTimeLabel);
+            this.Controls.Add(this.WrongAnswersLabel);
+            this.Controls.Add(this.RightAnswerLabel);
+            this.Controls.Add(this.GamesLabel);
             this.Controls.Add(this.label1);
             this.Name = "UserStatusPage";
             this.ShowIcon = false;
@@ -143,10 +158,11 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label GamesLabel;
+        private System.Windows.Forms.Label RightAnswerLabel;
+        private System.Windows.Forms.Label WrongAnswersLabel;
+        private System.Windows.Forms.Label AvgTimeLabel;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label TotalScoreLabel;
     }
 }

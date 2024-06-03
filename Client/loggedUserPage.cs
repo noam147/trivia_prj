@@ -35,14 +35,13 @@ namespace clientGuiTrivia
                 MainScreen frm = new MainScreen(clientHandler);
                 frm.FormClosed += (formClosedSender, formClosedEventArgs) => {
                     // This code will execute when the loggedUserPage form is closed
-                    this.Hide(); // Close the current form after the loggedUserPage form is closed
+                   // Close the current form after the loggedUserPage form is closed
                     this.Close();
                 };
-                this.Hide();
+                frm.Show();
                 this.Close();
-                frm.ShowDialog();
+                
             });
-
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -94,9 +93,11 @@ namespace clientGuiTrivia
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             AddNewQuestions addNewQuestions = new AddNewQuestions(this.username,this.clientHandler);
-            this.Close();
             addNewQuestions.Show();
+            this.Close();
+           
 
         }
 
