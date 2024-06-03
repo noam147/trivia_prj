@@ -10,7 +10,7 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo request)
 RoomAdminRequestHandler::~RoomAdminRequestHandler()
 {
 	this->closeRoom(RequestInfo());
-
+	//this->m_handlerFactory.getLoginManager().logOut(this->m_user.getUserName());
 }
 
 RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo info)
@@ -44,6 +44,7 @@ bool RoomAdminRequestHandler::isRequestRelevant(RequestInfo request)
 RequestResult RoomAdminRequestHandler::startGame(RequestInfo request)
 {
 	RequestResult r;
+	this->m_user.setRoomId(this->m_room.getRoomData().id);
 	r.newHandler = (IRequestHandler*)m_handlerFactory.createGameRequestHandler(this->m_user);//replace to game handler
 	this->m_room.startGame(this->m_user);//room active - game started
 	r.response = JsonResponsePacketSerializer::serializeResponse(START_GAME_RESPONSE_SUCCESS);

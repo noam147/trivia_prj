@@ -17,6 +17,7 @@ Question Game::getQuestionForUser(string user)
 	GameData& current = this->m_players.find(user)->second;
 	if (m_questions.size() - 1 < current.correctAnswerCount + current.wrongAnswerCount)//if the questions ended
 	{
+		//check to prevent multiply request to db
 		current.averageAnswerTime /= this->m_questions.size();//get the avg of answer time
 		this->submitGameStatsToDB(current,user);//send to db when end
 		return Question("-1", std::vector<string>(), END_QUESTIONS);

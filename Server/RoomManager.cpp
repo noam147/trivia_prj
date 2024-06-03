@@ -71,6 +71,7 @@ Room& RoomManager::getRoom(int ID)
             return it->second;
         }
     }
+    throw RequestError();
 }
 
 int RoomManager::getIdOfRoom(Room room)
