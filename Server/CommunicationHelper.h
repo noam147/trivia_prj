@@ -29,19 +29,19 @@ enum MessageType : byte
 	LEAVE_GAME_RESPONSE_SUCCESS
 };
 /* public enum DeserializeMessageCode
-		{
-			ERROR_CODE = 40,
-			LOGIN_CODE,
-			SIGNUP_CODE,
-			LOGOUT_CODE,
-			JOIN_ROOM_CODE,
-			GET_ROOM_CODE,
-			GET_PLAYER_IN_ROOM_CODE,
-			CREATE_ROOM_CODE,
-			GET_HIGH_SCORE_CODE,
-			GET_PERSONAL_STAT_CODE,*/
+        {
+            ERROR_CODE = 40,
+            LOGIN_CODE,
+            SIGNUP_CODE,
+            LOGOUT_CODE,
+            JOIN_ROOM_CODE,
+            GET_ROOM_CODE,
+            GET_PLAYER_IN_ROOM_CODE,
+            CREATE_ROOM_CODE,
+            GET_HIGH_SCORE_CODE,
+            GET_PERSONAL_STAT_CODE,*/
 
-			// From Client
+// From Client
 enum clientMessageType : byte
 {
 	LOGIN_REQUEST = 1,
@@ -65,6 +65,7 @@ enum clientMessageType : byte
 	LEAVE_GAME_REQUEST,
 	GET_GAME_RESULT_REQUEST
 };
+
 class CommunicationHelper
 {
 public:

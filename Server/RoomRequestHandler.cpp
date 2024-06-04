@@ -30,8 +30,11 @@ RequestResult RoomRequestHandler::handleRequest(RequestInfo info)
 }
 RequestResult RoomRequestHandler::getRoomState(RequestInfo request)
 {
-	//for member:
-	//check if admin closed room:
+
+	this->m_room = this->m_handlerFactory.getRoomManager().getRoomByName(this->m_room.getRoomData().name);//set room again?
+
+//for member:
+//check if admin closed room:
 	m_user.setRoomId(this->m_room.getRoomData().id);
 	if (!this->m_roomManager.isRoomExsist(this->m_room.getRoomData().id))//if room closed
 	{

@@ -347,6 +347,7 @@ int SqliteDataBase::submitGameStatistics(GameData gamedata,std::string username)
 	this->setNumOfCorrectAnswers(sumCorrectAnswers, username);
 	this->setNumOfTotalAnswers(sumAnswers, username);
 	this->setPlayerAverageAnswerTime(avgTimeForAnswer, username);
+
 	return 0;
 }
 

@@ -144,6 +144,7 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 		return r;
 	}
 	//to check if fer cuase problems and need an address
+	
 	Room& roomToJoin = this->m_handlerFactory.getRoomManager().getRoomByName(jrRequest.roomname);
 	//Room* roomToJoin =&( this->m_handlerFactory.getRoomManager().getRoomByName(jrRequest.roomname));
 	if (roomToJoin.getAllUsers().size() >= roomToJoin.getRoomData().maxPlayers)
@@ -158,6 +159,7 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 	JoinRoomResponse jrResponse;
 	jrResponse.status = 1;
 	r.response = JsonResponsePacketSerializer::serializeResponse(jrResponse);
+	std::vector<string> v= this->m_handlerFactory.getRoomManager().getRoomByName("e").getAllUsers();
 	return r;
 }
 

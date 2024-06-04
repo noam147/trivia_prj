@@ -164,7 +164,7 @@ std::string JsonResponsePacketSerializer::serializeResponse(StartGameResponse sg
     json j = json::parse(msg);
     std::string jsonString = j.dump();
     std::string updateMsg = addLengthToMsg(jsonString);
-    char codeMsg = CLOSE_ROOM_RESPONSE_SUCCESS;
+    char codeMsg = START_GAME_RESPONSE_SUCCESS;
     updateMsg = codeMsg + updateMsg;//add code
 
     return updateMsg;
@@ -184,7 +184,7 @@ std::string JsonResponsePacketSerializer::serializeResponse(LeaveGameResponse lg
 
 std::string JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse grsRes)
 {
-    
+
     json j;
     j["status"] = grsRes.status;
     j["HasGameBegun"] = grsRes.hasGameBegun;
@@ -200,17 +200,23 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse
 
     return updateMsg;
 }
-
 std::string JsonResponsePacketSerializer::serializeResponse(GetGameResultsResponse grRes)
 {
     return std::string();
 }
-
 std::string JsonResponsePacketSerializer::serializeResponse(SubmitAnswerResponse sbRes)
 {
-    return std::string();
-}
+    json j;
+    j["hasUserAnswerRight"] = sbRes.hasUserAnswerRight;
+    std::string msg = j.dump();
+    j = json::parse(msg);
+    std::string jsonString = j.dump();
+    std::string updateMsg = addLengthToMsg(jsonString);
+    char codeMsg = SUBMIT_ANSWER_RESPONSE_SUCCESS;
+    updateMsg = codeMsg + updateMsg;//add code
 
+    return updateMsg;
+}
 std::string JsonResponsePacketSerializer::serializeResponse(GetQuestionResponse gqRes)
 {
     char codeMsg = ':';
@@ -218,6 +224,7 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetQuestionResponse 
     if (gqRes.status == END_QUESTIONS)
     {
         codeMsg = ERROR_RESPONSE;//game end = can't ask for question
+        return "{}";
     }
     if (gqRes.status == KEEP_QUESTIONS)
     {
@@ -225,7 +232,8 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetQuestionResponse 
     }
     if (gqRes.answers.size() != 4)//if there are not 4 answers
     {
-        throw RequestError();
+        codeMsg = ERROR_RESPONSE;
+        return "{}";
     }
     std::string msg = "{\"status\":\"" + std::to_string(gqRes.status) + "\",\"question\":\""+gqRes.question+"\",\"answers\":\[\""+gqRes.answers.find(0)->second + "\",\"" + gqRes.answers.find(1)->second + "\",\"" + gqRes.answers.find(2)->second + "\",\"" + gqRes.answers.find(3)->second + "\"]}";
     json j = json::parse(msg);
