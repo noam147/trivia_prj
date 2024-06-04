@@ -42,6 +42,14 @@ namespace clientGuiTrivia
             if (question.status == -1)//if server sends error
             {
                 // getQuestion();
+
+                //go to result page
+                GameResultPage gameResult = new GameResultPage(username,clientHandler);
+                gameResult.Show();
+                this.Close();
+                //loggedUserPage loggedUser = new loggedUserPage(this.username, this.clientHandler);
+                //loggedUser.Show();
+                //this.Close();
             }
             else if (question.status == 1)
             {

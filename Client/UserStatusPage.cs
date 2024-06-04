@@ -29,10 +29,12 @@ namespace clientGuiTrivia
             string msg = clientHandler.receiveMsg();
             
             List<string> userDetalis = Deserializer.desirializeGetStatsResponse(msg);
-            this.label2.Text += userDetalis[2];
-            this.label3.Text += userDetalis[3];
-            this.label4.Text += userDetalis[1];
-            this.label5.Text += userDetalis[0];//time
+            this.GamesLabel.Text += userDetalis[2];
+            this.RightAnswerLabel.Text += userDetalis[1];
+            this.WrongAnswersLabel.Text += ((int.Parse(userDetalis[4]) - int.Parse(userDetalis[1]))).ToString();//total- right
+            this.AvgTimeLabel.Text += userDetalis[0];//time
+            //0 -time 1 coorect answer 2 numgames 3 player score 4 total answers
+            this.TotalScoreLabel.Text += userDetalis[3];
 
         }
 

@@ -1,11 +1,6 @@
 ﻿using JsonSerialzierHelper;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,7 +24,7 @@ namespace clientGuiTrivia
 
             InitializeComponent();
             this.joinButton.Enabled = false; //in the start the button is disabled 
-                                             //send request to server to check avilable rooms
+                                             //send request to server to check available rooms
 
             // Ensure the FormClosing event is attached
             this.FormClosing += JoinRoomPage_FormClosing;
@@ -37,7 +32,6 @@ namespace clientGuiTrivia
             // Start the task
             this.task = Task.Run(() => RefreshUsers(cts.Token));
         }
-
 
         private async Task RefreshUsers(CancellationToken token)
         {
@@ -61,7 +55,10 @@ namespace clientGuiTrivia
 
                     var roomData = Deserializer.desirializeGetRoomStateResponse(msgReceived);
 
-                    this.Invoke((MethodInvoker)(() => refreshAction()));
+                    if (this.IsHandleCreated)
+                    {
+                        this.Invoke((MethodInvoker)(() => refreshAction()));
+                    }
 
                     await Task.Delay(1000, token);
                 }
@@ -85,48 +82,30 @@ namespace clientGuiTrivia
 
         private void joinButton_Click(object sender, EventArgs e)
         {
-            //send to sesrver request
             joinRoomMessageFields joinRoom = new joinRoomMessageFields();
             joinRoom.roomName = this.roomToJoin;
             string msgToSend = Serializer.serialize(joinRoom);
             clientHandler.sendMsg(msgToSend);
-            string msgRecivied = clientHandler.receiveMsg();
-            if (Deserializer.desirializeJoinRoomResponse(msgRecivied))
+            string msgReceived = clientHandler.receiveMsg();
+            if (Deserializer.desirializeJoinRoomResponse(msgReceived))
             {
                 UserWaitingRoom frm = new UserWaitingRoom(this.username, roomToJoin, clientHandler);
                 frm.Show();
                 this.Close();
-
             }
             else
             {
                 //display error label
             }
-
         }
 
-        /*private void createButton(string roomName)
-        {
-            Button newButton = new Button();
-            
-            newButton.Text = roomName; ;
-            newButton.Size = new System.Drawing.Size(100, 30);
-
-            newButton.Click += (s, args) =>
-            {
-                Button clickedButton = s as Button;
-                this.roomToJoin = clickedButton.Text;
-                this.joinButton.Enabled=true;
-            };
-
-        }*/
         private void refreshAction()
         {
             getRoomsMessageFields getRooms = new getRoomsMessageFields();
             string msg = Serializer.serialize(getRooms);
             clientHandler.sendMsg(msg);
-            string msgRecived = clientHandler.receiveMsg();
-            List<string> roomNames = Deserializer.desirializeGetRoomsResponse(msgRecived);
+            string msgReceived = clientHandler.receiveMsg();
+            List<string> roomNames = Deserializer.desirializeGetRoomsResponse(msgReceived);
             if (roomNames == null)
             {
                 return;
@@ -152,7 +131,6 @@ namespace clientGuiTrivia
             {
                 this.joinButton.Enabled = false;
             }
-
         }
 
         private void RoomsList_SelectedIndexChanged(object sender, EventArgs e)
@@ -168,36 +146,30 @@ namespace clientGuiTrivia
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-
             refreshAction();
         }
 
-        private void JoinRoomPage_FormClosing(object sender, FormClosingEventArgs e)
+        private async void JoinRoomPage_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             cts.Cancel();
 
             try
             {
                 Console.WriteLine("check1");
-                //this.task?.Wait();
-                //task.Dispose(); 
+                if (task != null)
+                {
+                    await task; // Wait for the task to complete
+                }
                 Console.WriteLine("check2");
             }
-            catch (AggregateException ex)
+            catch (TaskCanceledException)
             {
-                Console.WriteLine("check3");
-            }
-            catch (InvalidOperationException ex)
-            {
-                // Handle the InvalidOperationException
-                Console.WriteLine("InvalidOperationException caught: " + ex.Message);
+                Console.WriteLine("TaskCanceledException caught during form closing.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("check4");
+                Console.WriteLine("Unexpected error during form closing: " + ex.Message);
             }
         }
-
     }
 }

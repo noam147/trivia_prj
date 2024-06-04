@@ -29,8 +29,12 @@ namespace clientGuiTrivia
 
             // Start the task
             this.task = Task.Run(() => RefreshScores(cts.Token));
-        }
 
+        }
+        private void refresh()
+        {
+
+        }
         private async Task RefreshScores(CancellationToken token)
         {
             try
