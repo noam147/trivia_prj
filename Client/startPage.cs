@@ -42,8 +42,8 @@ namespace clientGuiTrivia
                     loggedUserPage logPage = new loggedUserPage(_username, clientHandler);
                     logPage.FormClosed += (formClosedSender, formClosedEventArgs) => {
                         // This code will execute when the loggedUserPage form is closed
-                        this.Hide();
-                        this.Close(); // Close the current form after the loggedUserPage form is closed
+                        //this.Hide();
+                        //this.Close(); // Close the current form after the loggedUserPage form is closed
                     };
                     
                     this.Hide();

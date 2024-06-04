@@ -40,7 +40,7 @@ namespace clientGuiTrivia
                     username = username
                 };
                 string msgToSend = Serializer.serialize(getHighScore);
-                string msgRecive;
+                string msgReceive;
                 List<Dictionary<string, string>> users;
 
                 Label[] labels = { label1, label2, label3, label4, label5 };
@@ -52,23 +52,27 @@ namespace clientGuiTrivia
                     lock (lockSocket)
                     {
                         clientHandler.sendMsg(msgToSend);
-                        msgRecive = clientHandler.receiveMsg();
+                        msgReceive = clientHandler.receiveMsg();
                     }
-
-                    users = Deserializer.desirializeGetHighscoreResponse(msgRecive);
+                    users = Deserializer.desirializeGetHighscoreResponse(msgReceive);
 
                     // Update the labels on the UI thread
-                    if (labels != null && users != null)
+                    if (labels != null && users != null && !this.IsDisposed && this.IsHandleCreated)
                     {
                         this.Invoke(new Action(() =>
                         {
-
-                            for (int i = 0; i < users.Count; i++)
+                            if (!this.IsDisposed && this.IsHandleCreated)
                             {
-                                foreach (var kvp in users[i])
+                                for (int i = 0; i < users.Count; i++)
                                 {
-                                    labels[i].Text = "The player: " + kvp.Key + " scored: " + kvp.Value;
-                                    Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
+                                    foreach (var kvp in users[i])
+                                    {
+                                        if (i < labels.Length)
+                                        {
+                                            labels[i].Text = "The player: " + kvp.Key + " scored: " + kvp.Value;
+                                            Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
+                                        }
+                                    }
                                 }
                             }
                         }));
@@ -98,21 +102,25 @@ namespace clientGuiTrivia
         {
             cts.Cancel();
 
-            try
+            // Optionally, wait for the task to complete without blocking the UI thread
+            // Note: Removing the blocking Wait() call to avoid deadlock
+            this.task?.ContinueWith(t =>
             {
-                this.task?.Wait();
-            }
-            catch (AggregateException ex)
-            {
-                if (ex.InnerException is TaskCanceledException)
+                if (t.Exception != null)
                 {
-                    Console.WriteLine("Task was canceled.");
+                    foreach (var ex in t.Exception.InnerExceptions)
+                    {
+                        if (ex is TaskCanceledException)
+                        {
+                            Console.WriteLine("Task was canceled.");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Unexpected error: {ex.Message}");
+                        }
+                    }
                 }
-                else
-                {
-                    throw;
-                }
-            }
+            }, TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.ExecuteSynchronously);
         }
 
         // Other event handlers...
