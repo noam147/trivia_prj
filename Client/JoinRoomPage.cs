@@ -41,7 +41,7 @@ namespace clientGuiTrivia
                 {
                     Console.WriteLine("Task running...");
 
-                    char codeMsg = (char)JsonSerialzierHelper.SerializeMessageCode.GET_ROOM_CODE;
+                    /*char codeMsg = (char)JsonSerialzierHelper.SerializeMessageCode.GET_ROOM_CODE;
                     string msgToSend = "{}";
                     Serializer.addLength(ref msgToSend);
                     msgToSend = codeMsg + msgToSend;
@@ -55,10 +55,12 @@ namespace clientGuiTrivia
 
                     var roomData = Deserializer.desirializeGetRoomStateResponse(msgReceived);
 
-                    if (this.IsHandleCreated)
+*/
+                    while (!(this.IsHandleCreated))
                     {
-                        this.Invoke((MethodInvoker)(() => refreshAction()));
+                        continue;  
                     }
+                    this.Invoke((MethodInvoker)(() => refreshAction()));
 
                     await Task.Delay(1000, token);
                 }

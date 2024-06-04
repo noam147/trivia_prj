@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static JsonDeserialzierHelper.JsonDeserializerHelper;
 
 namespace clientGuiTrivia
 {
@@ -40,54 +41,13 @@ namespace clientGuiTrivia
                 {
                     Console.WriteLine("Task running...");
 
-                    char codeMsg = (char)JsonSerialzierHelper.SerializeMessageCode.GET_ROOM_STATE_CODE;
-                    string msgToSend = "{}";
-                    Serializer.addLength(ref msgToSend);
-                    msgToSend = codeMsg + msgToSend;
-                    string msgReceived = "";
-
-                    lock (lockSocket)
-                    {
-                        clientHandler.sendMsg(msgToSend);
-                        msgReceived = clientHandler.receiveMsg();
-                    }
-
-                    //this is for user:
-                    if(Deserializer.desirializeLeaveRoomResponse(msgReceived)) 
-                    {
-                        //if the admin exited go to menu again
-                    }
-                    if(Deserializer.desirializeStartGameResponse(msgReceived))
-                    {
-                        Game_Questions game = new Game_Questions(username,this.clientHandler,this.maxQuestions);
-                        //if the admin start game
-                        game.Show();
-                        this.Close();
-                    }
-                    var roomData = Deserializer.desirializeGetRoomStateResponse(msgReceived);
-                    if(roomData.status == -2)
+                    while (!(this.IsHandleCreated)) // runs untill ready to refresh
                     {
                         continue;
                     }
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        string selectedItem = UsersList.SelectedItem?.ToString();
+                    this.Invoke((MethodInvoker)(() => refreshAction())); // refreshing form
 
-                        UsersList.Items.Clear();
-                        foreach (var user in roomData.players)
-                        {
-                            this.UsersList.Items.Add(user);
-                        }
-
-                        if (selectedItem != null && roomData.players.Contains(selectedItem))
-                        {
-                            UsersList.SelectedItem = selectedItem;
-                        }
-
-                        this.UsersList.Refresh();
-                    });
-
-                    await Task.Delay(1000, token);
+                    await Task.Delay(1000, token); // wait 1000 milisecondes = 1 second 
                 }
             }
             catch (TaskCanceledException)
@@ -98,6 +58,56 @@ namespace clientGuiTrivia
             {
                 Console.WriteLine($"Unexpected error: {ex.Message}");
             }
+        }
+
+        private void refreshAction()
+        {
+            Console.WriteLine("Task running...");
+
+            char codeMsg = (char)JsonSerialzierHelper.SerializeMessageCode.GET_ROOM_STATE_CODE;
+            string msgToSend = "{}";
+            Serializer.addLength(ref msgToSend);
+            msgToSend = codeMsg + msgToSend;
+            string msgReceived = "";
+
+            lock (lockSocket)
+            {
+                clientHandler.sendMsg(msgToSend);
+                msgReceived = clientHandler.receiveMsg();
+            }
+
+            //this is for user:
+            if (Deserializer.desirializeLeaveRoomResponse(msgReceived))
+            {
+                //if the admin exited go to menu again
+            }
+            if (Deserializer.desirializeStartGameResponse(msgReceived))
+            {
+                Game_Questions game = new Game_Questions(username, this.clientHandler, this.maxQuestions);
+                //if the admin start game
+                game.Show();
+                this.Close();
+            }
+            var roomData = Deserializer.desirializeGetRoomStateResponse(msgReceived);
+            if (roomData.status == -2)
+            {
+                return;
+            }
+
+            string selectedItem = UsersList.SelectedItem?.ToString();
+
+            UsersList.Items.Clear();
+            foreach (var user in roomData.players)
+            {
+                this.UsersList.Items.Add(user);
+            }
+
+            if (selectedItem != null && roomData.players.Contains(selectedItem))
+            {
+                UsersList.SelectedItem = selectedItem;
+            }
+
+            this.UsersList.Refresh();
         }
 
         private void button3_Click(object sender, EventArgs e)

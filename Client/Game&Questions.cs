@@ -50,6 +50,7 @@ namespace clientGuiTrivia
                 //loggedUserPage loggedUser = new loggedUserPage(this.username, this.clientHandler);
                 //loggedUser.Show();
                 //this.Close();
+
             }
             else if (question.status == 1)
             {
