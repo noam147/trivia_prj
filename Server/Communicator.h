@@ -2,6 +2,7 @@
 #pragma once
 #include "Server.h"
 #include "IRequestHandler.h"
+#include "BaseException.hpp"
 #include <string>
 #include <mutex>
 #include <condition_variable>

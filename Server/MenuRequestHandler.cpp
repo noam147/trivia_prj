@@ -159,7 +159,6 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 	JoinRoomResponse jrResponse;
 	jrResponse.status = 1;
 	r.response = JsonResponsePacketSerializer::serializeResponse(jrResponse);
-	std::vector<string> v= this->m_handlerFactory.getRoomManager().getRoomByName("e").getAllUsers();
 	return r;
 }
 

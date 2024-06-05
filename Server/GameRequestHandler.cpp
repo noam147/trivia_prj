@@ -111,5 +111,6 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
     this->m_game.removePlayer(this->m_user.getUserName());
     r.newHandler = m_handlerFacroty.createMenuRequestHandler(m_user);
     r.response = JsonResponsePacketSerializer::serializeResponse(LEAVE_GAME_RESPONSE_SUCCESS);
+    
     return r;
 }
