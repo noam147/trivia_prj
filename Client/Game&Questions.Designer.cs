@@ -1,6 +1,6 @@
 ﻿namespace clientGuiTrivia
 {
-    partial class Game_Questions
+    partial class GameQuestions
     {
         /// <summary>
         /// Required designer variable.

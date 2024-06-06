@@ -12,11 +12,11 @@ using static JsonDeserialzierHelper.JsonDeserializerHelper;
 
 namespace clientGuiTrivia
 {
-    public partial class Game_Questions : Form
+    public partial class GameQuestions : Form
     {
         private string username;
         private ClientHandler clientHandler;
-        public Game_Questions(string user, ClientHandler clientHandler, int maxQuestion)
+        public GameQuestions(string user, ClientHandler clientHandler, int maxQuestion)
         {
             this.username = user;
             this.clientHandler = clientHandler;
@@ -42,9 +42,15 @@ namespace clientGuiTrivia
             if (question.status == -1)//if server sends error
             {
                 // getQuestion();
-                loggedUserPage loggedUser = new loggedUserPage(this.username, this.clientHandler);
-                loggedUser.Show();
+
+                //go to result page
+                GameResultPage gameResult = new GameResultPage(username,clientHandler);
+                gameResult.Show();
                 this.Close();
+                //loggedUserPage loggedUser = new loggedUserPage(this.username, this.clientHandler);
+                //loggedUser.Show();
+                //this.Close();
+
             }
             else if (question.status == 1)
             {

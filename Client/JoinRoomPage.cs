@@ -54,6 +54,7 @@ namespace clientGuiTrivia
                     }
 
                     var roomData = Deserializer.desirializeGetRoomStateResponse(msgReceived);
+
 */
                     while (!(this.IsHandleCreated))
                     {

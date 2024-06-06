@@ -27,8 +27,8 @@ namespace clientGuiTrivia
 
         public UserWaitingRoom(string user,string roomName, ClientHandler clientHandler)
         {
+            this.username = user;
             int numQuestions = 0;
-            int numPlayers = 0;
             float timePerQuestion = 0;//get this from server
             InitializeComponent();
             this.roomNameLabel.Text = "you are connected to room: " + roomName;
@@ -61,22 +61,30 @@ namespace clientGuiTrivia
                     //this is for user:
                     if (Deserializer.desirializeLeaveRoomResponse(msgReceived))
                     {
+                        this.Invoke((MethodInvoker)delegate { leaveAction(); });
+                        return;
                         //if the admin exited go to menu again
                     }
                     if (Deserializer.desirializeStartGameResponse(msgReceived))
                     {
-                        Game_Questions game = new Game_Questions(username, this.clientHandler, this.maxQuestions);
-                        //if the admin start game
-                        game.Show();
-                        this.Close();
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions);
+                            //if the admin start game
+                            game.Show();
+                            this.Close();
+                            return;
+                        });                   
                     }
                     var roomData = Deserializer.desirializeGetRoomStateResponse(msgReceived);
                     if (roomData.status == -2)
                     {
                         continue;
                     }
+                    
                     this.Invoke((MethodInvoker)delegate
                     {
+                        this.roomSettingsLabel.Text = "number of questions: " + roomData.AnswerCount.ToString() + ", time per question: " + roomData.answerTimeOut.ToString();
                         string selectedItem = UsersList.SelectedItem?.ToString();
 
                         UsersList.Items.Clear();
@@ -108,6 +116,10 @@ namespace clientGuiTrivia
        
         private void button1_Click(object sender, EventArgs e)
         {
+            leaveAction();
+        }
+        private void leaveAction()
+        {
             char codeMsg = (char)JsonSerialzierHelper.SerializeMessageCode.GET_LEAVE_ROOM_CODE;
             string msgToSend = "{}";
             Serializer.addLength(ref msgToSend);
@@ -121,28 +133,29 @@ namespace clientGuiTrivia
             }
 
 
-            loggedUserPage frm = new loggedUserPage(this.username,clientHandler);
+            loggedUserPage frm = new loggedUserPage(this.username, clientHandler);
             frm.Show();
             this.Close();
+
         }
 
-        private void UserWaitingRoom_FormClosing(object sender, FormClosingEventArgs e)
+        private async void UserWaitingRoom_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             cts.Cancel();
-            try
+            if (this.task != null)
             {
-                this.task?.Wait();
-            }
-            catch (AggregateException ex)
-            {
-                if (ex.InnerException is TaskCanceledException)
+                try
+                {
+                    await this.task; // Await the task asynchronously
+                }
+                catch (TaskCanceledException)
                 {
                     Console.WriteLine("Task was canceled.");
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw;
+                    // Handle any other exceptions that might occur
+                    Console.WriteLine("An error occurred: " + ex.Message);
                 }
             }
         }
