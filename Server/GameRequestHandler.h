@@ -11,7 +11,7 @@ public:
 	~GameRequestHandler();
 	bool isRequestRelevant(RequestInfo) override;
 	RequestResult handleRequest(RequestInfo) override;
-		
+	
 
 private:
 	std::chrono::time_point<std::chrono::high_resolution_clock> m_start;//for timer to see the time between quesitons

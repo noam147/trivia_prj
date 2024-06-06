@@ -94,14 +94,28 @@ RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
 RequestResult GameRequestHandler::getGameResults(RequestInfo info)
 {
     RequestResult r;
-    if (this->m_game.checkIfAllPlayersFinishToAnswer())
+    r.newHandler = nullptr;
+    if (!this->m_game.checkIfAllPlayersFinishToAnswer())
     {
-        //need to serilze response of results
-       // r.response = 
-        r.newHandler = this->m_handlerFacroty.createMenuRequestHandler(this->m_user);//after result go into menu
+       r.response =  JsonResponsePacketSerializer::serializeResponse(ErrorResponse());
+        return r;//not all players finish
     }
-
-    throw RequestError();//not all players finish
+    this->m_handlerFacroty.getRoomManager().deleteRoom(m_user.getRoomId());
+    this->m_user.setRoomId(-1);
+    r.newHandler = this->m_handlerFacroty.createMenuRequestHandler(this->m_user);//after result go into menu
+    GetGameResultsResponse playerSum;
+    std::map<string, GameData> players= this->m_game.getPlayersAndData();
+    for (auto it = players.begin(); it != players.end(); it++)
+    {
+        PlayerResults p;
+        p.username = it->first;
+        p.averageAnswerTime = it->second.averageAnswerTime;
+        p.correctAnswerCount = it->second.correctAnswerCount;
+        p.wrongAnswerCount = it->second.wrongAnswerCount;
+        playerSum.results.push_back(p);
+    }
+    r.response = JsonResponsePacketSerializer::serializeResponse(playerSum);
+    return r;
 }
 
 RequestResult GameRequestHandler::leaveGame(RequestInfo info)
@@ -110,6 +124,14 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
     this->m_user.setRoomId(-1);
     this->m_game.removePlayer(this->m_user.getUserName());
     r.newHandler = m_handlerFacroty.createMenuRequestHandler(m_user);
+
+    if (this->m_game.getPlayersAndData().empty())
+    {
+        m_game.deleteDict();
+        this->m_gameManager.deleteGame(this->m_game.getGameId());
+       
+    }
+
     r.response = JsonResponsePacketSerializer::serializeResponse(LEAVE_GAME_RESPONSE_SUCCESS);
     
     return r;

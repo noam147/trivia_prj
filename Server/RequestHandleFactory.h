@@ -30,7 +30,8 @@ public:
 	RoomRequestHandler* createRoomAdminRequestHandler(LoggedUser user, Room& room);
 	RoomRequestHandler* createRoomMemberRequestHandler(LoggedUser user, Room& room);
 	
-	GameRequestHandler* createGameRequestHandler(LoggedUser user);
+	GameRequestHandler* createGameRequestHandler(LoggedUser user);//for admin
+	GameRequestHandler* createGameRequestHandler(LoggedUser user,string roomName);//for member
 	GameManager& getGameManager();
 
 
