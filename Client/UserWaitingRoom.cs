@@ -69,7 +69,7 @@ namespace clientGuiTrivia
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
-                            GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions);
+                            GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions,false);
                             //if the admin start game
                             game.Show();
                             this.Close();

@@ -30,14 +30,13 @@ namespace JsonDeserialzierHelper
             LEAVE_ROOM_CODE,
             GET_SERVER_ANSWER_TO_ADMIN_START_GAME_REQUEST_SUCSEES,
             GET_SERVER_ANSWER_TO_ADMIN_LEAVE_GAME_REQUEST_SUCSEES,
-            
-            
-           
+
+
             //
             //
             //GET_ROOM_STATE_CODE,
             // LEAVE_ROOM_CODE,
-            //GET_GAME_RESULT_CODE,
+            //,
             //,
             //,
             //LEAVE_GAME_CODE
@@ -84,6 +83,18 @@ namespace JsonDeserialzierHelper
         public struct SubmitAnswerResponse
         {
             public bool hasUserAnswerRight { get; set; }
+        }
+        public struct playerResult
+        {
+            public string username {  get; set; }
+            public int correctAnswerCount { get; set; }
+            public int wrongAnswerCount { get; set;}
+            public float averageAnswerTime { get; set; }
+            public int sumPoints { get; set; }
+        }
+        public struct gameResult
+        {
+            public List<playerResult> results { get; set; }
         }
 
     }
