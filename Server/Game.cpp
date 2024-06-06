@@ -15,10 +15,16 @@ Game::Game(std::vector<Question> questions, std::vector<string> usersInRoom, IDa
 Question Game::getQuestionForUser(string user)
 {
 	GameData& current = this->m_players.find(user)->second;
+	if (current.isPlayerFinishAnswerAllTheQuestions == true)//if player trying to ask multiple time when alredy finished
+	{
+		return Question("-1", std::vector<string>(), END_QUESTIONS);
+	}
+
 	if (m_questions.size() - 1 < current.correctAnswerCount + current.wrongAnswerCount)//if the questions ended
 	{
 		//check to prevent multiply request to db
 		current.averageAnswerTime /= this->m_questions.size();//get the avg of answer time
+		current.isPlayerFinishAnswerAllTheQuestions = true;
 		this->submitGameStatsToDB(current,user);//send to db when end
 		return Question("-1", std::vector<string>(), END_QUESTIONS);
 	}
@@ -29,6 +35,10 @@ Question Game::getQuestionForUser(string user)
 RequestResult Game::submitAnswer(SendAnswerMessageFields userAnswer,std::string username)
 {
 	GameData& currgameData = this->m_players.find(username)->second;
+	if (currgameData.isPlayerFinishAnswerAllTheQuestions == true)
+	{
+		throw RequestError();
+	}
 	currgameData.averageAnswerTime += userAnswer.answerTime;//add time - avg at end
 	SubmitAnswerResponse submit;
 	RequestResult r;
@@ -62,6 +72,18 @@ void Game::removePlayer(string user)
 			return;
 		}
 	}
+}
+
+bool Game::checkIfAllPlayersFinishToAnswer()
+{
+	for (auto it = this->m_players.begin(); it != m_players.end(); it++)
+	{
+		if (it->second.isPlayerFinishAnswerAllTheQuestions == false)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void Game::submitGameStatsToDB(GameData gamedata,std::string username)

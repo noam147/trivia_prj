@@ -51,6 +51,7 @@ RequestResult GameRequestHandler::handleRequest(RequestInfo info)
 RequestResult GameRequestHandler::getQuestion(RequestInfo info)
 {
     RequestResult r;
+    r.newHandler = nullptr;
     Question q = this->m_game.getQuestionForUser(this->m_user.getUserName());
     GetQuestionResponse getQuestion;
     getQuestion.question = q.getQuestion();
@@ -63,10 +64,12 @@ RequestResult GameRequestHandler::getQuestion(RequestInfo info)
     getQuestion.status = KEEP_QUESTIONS;
     if (q.getCorrectAnswerId() == END_QUESTIONS)
     {
+        //need to check if need to create resultHandler? seem pretty useless..
+        //maybe here send the getGameResults
         getQuestion.status = END_QUESTIONS;
     }
     r.response = JsonResponsePacketSerializer::serializeResponse(getQuestion);
-    r.newHandler = nullptr;
+   
 
     this->m_start = std::chrono::high_resolution_clock::now();//set the timer
     return r;
@@ -90,11 +93,15 @@ RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
 
 RequestResult GameRequestHandler::getGameResults(RequestInfo info)
 {
-    
-    //json serilaze of:
-    //status if game really ended
-    //result of each player game data
-    return RequestResult();
+    RequestResult r;
+    if (this->m_game.checkIfAllPlayersFinishToAnswer())
+    {
+        //need to serilze response of results
+       // r.response = 
+        r.newHandler = this->m_handlerFacroty.createMenuRequestHandler(this->m_user);//after result go into menu
+    }
+
+    throw RequestError();//not all players finish
 }
 
 RequestResult GameRequestHandler::leaveGame(RequestInfo info)
@@ -104,5 +111,6 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
     this->m_game.removePlayer(this->m_user.getUserName());
     r.newHandler = m_handlerFacroty.createMenuRequestHandler(m_user);
     r.response = JsonResponsePacketSerializer::serializeResponse(LEAVE_GAME_RESPONSE_SUCCESS);
+    
     return r;
 }

@@ -9,7 +9,7 @@
 #include "userDetalis.h"
 #include "CommunicationHelper.h"
 
-#define END_QUESTIONS 1
+#define END_QUESTIONS -1
 #define KEEP_QUESTIONS 0
 
 using json = nlohmann::json;

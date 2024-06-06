@@ -5,7 +5,7 @@ RoomRequestHandler::~RoomRequestHandler()
 {
 	this->m_handlerFactory.getLoginManager().logOut(this->m_user.getUserName());
 
-	this->m_room.removeUser(m_user); //cause error
+	this->m_room.removeUser(m_user); 
 }
 RoomRequestHandler::RoomRequestHandler(LoggedUser user, Room& room, RequestHandleFactory& handlerFactory) : m_user(user), m_room(room), m_roomManager(handlerFactory.getRoomManager()), m_handlerFactory(handlerFactory)
 {
@@ -30,8 +30,21 @@ RequestResult RoomRequestHandler::handleRequest(RequestInfo info)
 }
 RequestResult RoomRequestHandler::getRoomState(RequestInfo request)
 {
-
-	this->m_room = this->m_handlerFactory.getRoomManager().getRoomByName(this->m_room.getRoomData().name);//set room again?
+	try
+	{
+		this->m_room = this->m_handlerFactory.getRoomManager().getRoomByName(this->m_room.getRoomData().name);//set room again?
+	}
+	catch (RequestError e)
+	{
+		//for member:
+		//check if admin closed room:
+		RequestResult r;
+		r.newHandler = m_handlerFactory.createMenuRequestHandler(this->m_user);
+		r.response = JsonResponsePacketSerializer::serializeResponse(LEAVE_ROOM_RESPONSE_SUCCESS);
+		this->m_user.setRoomId(-1);
+		return r;
+	}
+	
 
 //for member:
 //check if admin closed room:

@@ -122,6 +122,10 @@ void Communicator::handleClient(SOCKET client_sock)
 						msgToSend = JsonResponsePacketSerializer::serializeResponse(ErrorResponse());
 					}
 				}
+				catch (const BaseException& e)
+				{
+					std::cerr << "Caught BaseException: " << e.what() << std::endl;
+				}
 				catch(...)
 				{
 					std::exception_ptr exptr = std::current_exception(); // Capture the current exception
@@ -137,6 +141,7 @@ void Communicator::handleClient(SOCKET client_sock)
 						std::cerr << "Caught unknown exception." << std::endl;
 					}
 				}
+
 				
 				
 			}
