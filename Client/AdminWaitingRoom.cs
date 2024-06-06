@@ -83,7 +83,7 @@ namespace clientGuiTrivia
             }
             if (Deserializer.desirializeStartGameResponse(msgReceived))
             {
-                Game_Questions game = new Game_Questions(username, this.clientHandler, this.maxQuestions);
+                GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions);
                 //if the admin start game
                 game.Show();
                 this.Close();
@@ -155,7 +155,7 @@ namespace clientGuiTrivia
             if (Deserializer.desirializeServerAnswerToAdminStartGameRequest(msgReceived))
             {
                 // get into game
-                var frm2 = new Game_Questions(username, clientHandler,this.maxQuestions);
+                var frm2 = new GameQuestions(username, clientHandler,this.maxQuestions);
                 frm2.Show();
                 this.Close();
                 return;

@@ -87,6 +87,12 @@
     <Compile Include="Game&amp;Questions.Designer.cs">
       <DependentUpon>Game&amp;Questions.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameResultPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameResultPage.Designer.cs">
+      <DependentUpon>GameResultPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="JoinRoomPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Game&amp;Questions.resx">
       <DependentUpon>Game&amp;Questions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameResultPage.resx">
+      <DependentUpon>GameResultPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JoinRoomPage.resx">
       <DependentUpon>JoinRoomPage.cs</DependentUpon>

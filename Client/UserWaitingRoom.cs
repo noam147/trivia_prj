@@ -69,10 +69,11 @@ namespace clientGuiTrivia
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
-                            Game_Questions game = new Game_Questions(username, this.clientHandler, this.maxQuestions);
+                            GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions);
                             //if the admin start game
                             game.Show();
                             this.Close();
+                            return;
                         });                   
                     }
                     var roomData = Deserializer.desirializeGetRoomStateResponse(msgReceived);
