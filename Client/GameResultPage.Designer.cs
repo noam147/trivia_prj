@@ -37,12 +37,13 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label2.ForeColor = System.Drawing.Color.IndianRed;
-            this.label2.Location = new System.Drawing.Point(264, 103);
+            this.label2.Location = new System.Drawing.Point(229, 72);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(449, 20);
+            this.label2.Size = new System.Drawing.Size(425, 32);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Waiting for all players to finish(not sending requests right now))";
+            this.label2.Text = "Waiting for all players to finish";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // menuButton
@@ -82,7 +83,7 @@
             // 
             this.playersLabel.AutoSize = true;
             this.playersLabel.Font = new System.Drawing.Font("Segoe Print", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playersLabel.ForeColor = System.Drawing.Color.Aqua;
+            this.playersLabel.ForeColor = System.Drawing.Color.Indigo;
             this.playersLabel.Location = new System.Drawing.Point(39, 181);
             this.playersLabel.Name = "playersLabel";
             this.playersLabel.Size = new System.Drawing.Size(196, 50);
@@ -93,13 +94,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.ClientSize = new System.Drawing.Size(928, 744);
             this.Controls.Add(this.playersLabel);
             this.Controls.Add(this.playAgainButton);
             this.Controls.Add(this.menuButton);
             this.Controls.Add(this.label2);
             this.Name = "GameResultPage";
-            this.Text = "GameResultPage";
+            this.ShowIcon = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 

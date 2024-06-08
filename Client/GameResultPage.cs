@@ -99,12 +99,13 @@ namespace clientGuiTrivia
                     user.sumPoints = 0;
                 playerResults.results[i] = user;
             }
+
             this.label2.Text = "";
             playerResults.results.Sort((x, y) => x.sumPoints.CompareTo(y.sumPoints));//sort points
             playersLabel.Text = "Results:\n";
             foreach (var user in playerResults.results)
             {
-                playersLabel.Text += "user: scored: " + user.sumPoints + " correct: " + user.correctAnswerCount + " wrong: " + user.wrongAnswerCount + " avgTime: " + user.averageAnswerTime + "\n";
+                playersLabel.Text += "user: " + user.username + "scored: " + user.sumPoints + " correct: " + user.correctAnswerCount + " wrong: " + user.wrongAnswerCount + " avgTime: " + user.averageAnswerTime + "\n";
             }
             //stop task here
             cts.Cancel();

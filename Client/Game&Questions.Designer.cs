@@ -43,42 +43,55 @@
             // questionLabel
             // 
             this.questionLabel.AutoSize = true;
+            this.questionLabel.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.questionLabel.ForeColor = System.Drawing.Color.Purple;
             this.questionLabel.Location = new System.Drawing.Point(362, 106);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(90, 20);
+            this.questionLabel.Size = new System.Drawing.Size(148, 26);
             this.questionLabel.TabIndex = 0;
             this.questionLabel.Text = "* question *";
             // 
             // questionsCountLabel
             // 
             this.questionsCountLabel.AutoSize = true;
-            this.questionsCountLabel.Location = new System.Drawing.Point(111, 88);
+            this.questionsCountLabel.Font = new System.Drawing.Font("Showcard Gothic", 8F, System.Drawing.FontStyle.Bold);
+            this.questionsCountLabel.ForeColor = System.Drawing.Color.Purple;
+            this.questionsCountLabel.Location = new System.Drawing.Point(128, 88);
             this.questionsCountLabel.Name = "questionsCountLabel";
             this.questionsCountLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.questionsCountLabel.Size = new System.Drawing.Size(104, 20);
+            this.questionsCountLabel.Size = new System.Drawing.Size(151, 20);
             this.questionsCountLabel.TabIndex = 1;
             this.questionsCountLabel.Text = "questions left";
             // 
             // rightQuestionsCountLabel
             // 
             this.rightQuestionsCountLabel.AutoSize = true;
-            this.rightQuestionsCountLabel.Location = new System.Drawing.Point(70, 48);
+            this.rightQuestionsCountLabel.Font = new System.Drawing.Font("Showcard Gothic", 8F, System.Drawing.FontStyle.Bold);
+            this.rightQuestionsCountLabel.ForeColor = System.Drawing.Color.Purple;
+            this.rightQuestionsCountLabel.Location = new System.Drawing.Point(54, 48);
             this.rightQuestionsCountLabel.Name = "rightQuestionsCountLabel";
-            this.rightQuestionsCountLabel.Size = new System.Drawing.Size(127, 20);
+            this.rightQuestionsCountLabel.Size = new System.Drawing.Size(172, 20);
             this.rightQuestionsCountLabel.TabIndex = 2;
             this.rightQuestionsCountLabel.Text = "Right Questions:";
             // 
             // timeToQuestionLabel
             // 
             this.timeToQuestionLabel.AutoSize = true;
+            this.timeToQuestionLabel.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.timeToQuestionLabel.ForeColor = System.Drawing.Color.Purple;
             this.timeToQuestionLabel.Location = new System.Drawing.Point(629, 87);
             this.timeToQuestionLabel.Name = "timeToQuestionLabel";
-            this.timeToQuestionLabel.Size = new System.Drawing.Size(135, 20);
+            this.timeToQuestionLabel.Size = new System.Drawing.Size(231, 26);
             this.timeToQuestionLabel.TabIndex = 3;
             this.timeToQuestionLabel.Text = "Time for question:";
+            this.timeToQuestionLabel.Click += new System.EventHandler(this.timeToQuestionLabel_Click);
             // 
             // answer1
             // 
+            this.answer1.FlatAppearance.BorderSize = 0;
+            this.answer1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.answer1.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.answer1.ForeColor = System.Drawing.Color.Red;
             this.answer1.Location = new System.Drawing.Point(158, 230);
             this.answer1.Name = "answer1";
             this.answer1.Size = new System.Drawing.Size(200, 150);
@@ -89,6 +102,10 @@
             // 
             // answer2
             // 
+            this.answer2.FlatAppearance.BorderSize = 0;
+            this.answer2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.answer2.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.answer2.ForeColor = System.Drawing.Color.Blue;
             this.answer2.Location = new System.Drawing.Point(441, 230);
             this.answer2.Name = "answer2";
             this.answer2.Size = new System.Drawing.Size(200, 150);
@@ -99,6 +116,10 @@
             // 
             // answer3
             // 
+            this.answer3.FlatAppearance.BorderSize = 0;
+            this.answer3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.answer3.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.answer3.ForeColor = System.Drawing.Color.Yellow;
             this.answer3.Location = new System.Drawing.Point(158, 432);
             this.answer3.Name = "answer3";
             this.answer3.Size = new System.Drawing.Size(200, 150);
@@ -109,6 +130,10 @@
             // 
             // answer4
             // 
+            this.answer4.FlatAppearance.BorderSize = 0;
+            this.answer4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.answer4.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.answer4.ForeColor = System.Drawing.Color.Lime;
             this.answer4.Location = new System.Drawing.Point(441, 432);
             this.answer4.Name = "answer4";
             this.answer4.Size = new System.Drawing.Size(200, 150);
@@ -120,25 +145,30 @@
             // NumberOfRightQuestions
             // 
             this.NumberOfRightQuestions.AutoSize = true;
-            this.NumberOfRightQuestions.Location = new System.Drawing.Point(226, 48);
+            this.NumberOfRightQuestions.Font = new System.Drawing.Font("Showcard Gothic", 8F, System.Drawing.FontStyle.Bold);
+            this.NumberOfRightQuestions.ForeColor = System.Drawing.Color.Purple;
+            this.NumberOfRightQuestions.Location = new System.Drawing.Point(232, 48);
             this.NumberOfRightQuestions.Name = "NumberOfRightQuestions";
-            this.NumberOfRightQuestions.Size = new System.Drawing.Size(51, 20);
+            this.NumberOfRightQuestions.Size = new System.Drawing.Size(68, 20);
             this.NumberOfRightQuestions.TabIndex = 8;
             this.NumberOfRightQuestions.Text = "label1";
             // 
             // NumberOfQuestionLeft
             // 
             this.NumberOfQuestionLeft.AutoSize = true;
+            this.NumberOfQuestionLeft.Font = new System.Drawing.Font("Showcard Gothic", 8F, System.Drawing.FontStyle.Bold);
+            this.NumberOfQuestionLeft.ForeColor = System.Drawing.Color.Purple;
             this.NumberOfQuestionLeft.Location = new System.Drawing.Point(54, 87);
             this.NumberOfQuestionLeft.Name = "NumberOfQuestionLeft";
-            this.NumberOfQuestionLeft.Size = new System.Drawing.Size(51, 20);
+            this.NumberOfQuestionLeft.Size = new System.Drawing.Size(68, 20);
             this.NumberOfQuestionLeft.TabIndex = 9;
             this.NumberOfQuestionLeft.Text = "label2";
             // 
-            // Game_Questions
+            // GameQuestions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.ClientSize = new System.Drawing.Size(928, 744);
             this.Controls.Add(this.NumberOfQuestionLeft);
             this.Controls.Add(this.NumberOfRightQuestions);
@@ -150,8 +180,8 @@
             this.Controls.Add(this.rightQuestionsCountLabel);
             this.Controls.Add(this.questionsCountLabel);
             this.Controls.Add(this.questionLabel);
-            this.Name = "Game_Questions";
-            this.Text = "Game_Questions";
+            this.Name = "GameQuestions";
+            this.ShowIcon = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 

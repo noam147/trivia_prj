@@ -114,5 +114,10 @@ namespace clientGuiTrivia
         {
             sendAnswerToSrever(3);
         }
+
+        private void timeToQuestionLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

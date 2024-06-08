@@ -45,7 +45,7 @@
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Font = new System.Drawing.Font("Stencil", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.ForeColor = System.Drawing.Color.Yellow;
-            this.button6.Location = new System.Drawing.Point(141, 279);
+            this.button6.Location = new System.Drawing.Point(137, 318);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(265, 53);
             this.button6.TabIndex = 20;
@@ -61,7 +61,7 @@
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Stencil", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.DarkOrange;
-            this.button5.Location = new System.Drawing.Point(566, 279);
+            this.button5.Location = new System.Drawing.Point(570, 318);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(224, 53);
             this.button5.TabIndex = 19;
@@ -122,7 +122,7 @@
             this.label1.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.label1.Location = new System.Drawing.Point(268, 85);
+            this.label1.Location = new System.Drawing.Point(270, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(411, 60);
             this.label1.TabIndex = 21;
@@ -130,9 +130,15 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(32, 55);
+            this.button1.AutoSize = true;
+            this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Stencil", 18F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.MediumBlue;
+            this.button1.Location = new System.Drawing.Point(301, 174);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(124, 90);
+            this.button1.Size = new System.Drawing.Size(309, 53);
             this.button1.TabIndex = 22;
             this.button1.Text = "Add Questions";
             this.button1.UseVisualStyleBackColor = true;
