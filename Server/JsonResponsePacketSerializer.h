@@ -95,14 +95,14 @@ struct PlayerResults
 	std::string username;
 	unsigned int correctAnswerCount;
 	unsigned int wrongAnswerCount;
-	unsigned int averageAnswerTime;
+	float averageAnswerTime;
 };
 
 struct GetGameResultsResponse
 {
-	unsigned int status;
 	std::vector<PlayerResults> results;
 };
+
 
 
 class JsonResponsePacketSerializer//msgs from the server to client

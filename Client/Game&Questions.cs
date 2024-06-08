@@ -16,8 +16,10 @@ namespace clientGuiTrivia
     {
         private string username;
         private ClientHandler clientHandler;
-        public GameQuestions(string user, ClientHandler clientHandler, int maxQuestion)
+        private bool isAdmin;
+        public GameQuestions(string user, ClientHandler clientHandler, int maxQuestion,bool isAdmin)
         {
+            this.isAdmin = isAdmin;
             this.username = user;
             this.clientHandler = clientHandler;
 
@@ -44,7 +46,7 @@ namespace clientGuiTrivia
                 // getQuestion();
 
                 //go to result page
-                GameResultPage gameResult = new GameResultPage(username,clientHandler);
+                GameResultPage gameResult = new GameResultPage(username,clientHandler,isAdmin);
                 gameResult.Show();
                 this.Close();
                 //loggedUserPage loggedUser = new loggedUserPage(this.username, this.clientHandler);

@@ -4,6 +4,16 @@
 #include <string>
 #define _CRT_SECURE_NO_WARNINGS
 
+void to_json(json& j, const PlayerResults& pr) {
+    j = json{
+        {"username", pr.username},
+        {"correctAnswerCount", pr.correctAnswerCount},
+        {"wrongAnswerCount", pr.wrongAnswerCount},
+        {"averageAnswerTime", pr.averageAnswerTime}
+    };
+}
+
+
 std::string JsonResponsePacketSerializer::serializeResponse(ErrorResponse error)
 {
     std::string msg = "{\"message\":\""+error.message+"\"}";
@@ -202,7 +212,13 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse
 }
 std::string JsonResponsePacketSerializer::serializeResponse(GetGameResultsResponse grRes)
 {
-    return std::string();
+    json j;
+    j["results"] = grRes.results;
+    std::string msg =  j.dump();
+    msg = addLengthToMsg(msg);
+    char codeMsg = GET_GAME_RESULT_RESPONSE_SUCCESS;
+    msg = codeMsg +msg;
+    return msg;
 }
 std::string JsonResponsePacketSerializer::serializeResponse(SubmitAnswerResponse sbRes)
 {

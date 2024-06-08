@@ -83,7 +83,7 @@ namespace clientGuiTrivia
             }
             if (Deserializer.desirializeStartGameResponse(msgReceived))
             {
-                GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions);
+                GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions,true);
                 //if the admin start game
                 game.Show();
                 this.Close();
@@ -155,7 +155,7 @@ namespace clientGuiTrivia
             if (Deserializer.desirializeServerAnswerToAdminStartGameRequest(msgReceived))
             {
                 // get into game
-                var frm2 = new GameQuestions(username, clientHandler,this.maxQuestions);
+                var frm2 = new GameQuestions(username, clientHandler,this.maxQuestions,true);//admin page
                 frm2.Show();
                 this.Close();
                 return;
@@ -170,23 +170,22 @@ namespace clientGuiTrivia
             this.Close();
         }
 
-        private void AdminWaitingRoom_FormClosing(object sender, FormClosingEventArgs e)
+        private async void AdminWaitingRoom_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
             cts.Cancel();
-            try
+            if (task != null)
             {
-                this.task?.Wait();
-            }
-            catch (AggregateException ex)
-            {
-                if (ex.InnerException is TaskCanceledException)
+                try
+                {
+                    await task; // Await the task instead of blocking
+                }
+                catch (TaskCanceledException)
                 {
                     Console.WriteLine("Task was canceled.");
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw;
+                    Console.WriteLine($"Unexpected error: {ex.Message}");
                 }
             }
         }

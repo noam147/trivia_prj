@@ -6,6 +6,7 @@ class GameManager
 {
 public:
 	Game* createGame(Room room,IDataBase* db);
+	Game* getGameByName(std::string name);
 	void deleteGame(int gameId);
 private:
 	IDataBase* m_database;// why game mannger need the db?

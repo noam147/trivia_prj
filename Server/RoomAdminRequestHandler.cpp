@@ -48,7 +48,6 @@ RequestResult RoomAdminRequestHandler::startGame(RequestInfo request)
 	r.newHandler = (IRequestHandler*)m_handlerFactory.createGameRequestHandler(this->m_user);//replace to game handler
 	this->m_room.startGame(this->m_user);//room active - game started
 	r.response = JsonResponsePacketSerializer::serializeResponse(START_GAME_RESPONSE_SUCCESS);
-	
 	return r;
 }
 

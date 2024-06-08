@@ -45,4 +45,5 @@ void Room::startGame(LoggedUser user)
 	{
 		this->m_metadata.isActive = true;
 	}
+	
 }

@@ -12,6 +12,13 @@ namespace clientGuiTrivia
 {
     static class Deserializer
     {
+        public static gameResult desirializeGameResultResponse(string msg)
+        {
+            gameResult game = new gameResult();
+            msg = msg.Substring(5);
+            game = JsonConvert.DeserializeObject<gameResult>(msg);
+            return game;
+        }
         public static RoomState desirializeGetRoomStateResponse(string GetRoomStatusResponse)
         {
             RoomState roomState = new RoomState();
@@ -27,6 +34,14 @@ namespace clientGuiTrivia
         public static bool desirializeServerAnswerToAdminStartGameRequest(string msgFromServer)//get msg from server to leave room - admin disconnected
         {
             if (msgFromServer[0] != (char)DeserializeMessageCode.GET_ADMIN_START_GAME_CODE)
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool desirializeAreAllPLayersFinishGameRequest(string msgFromServer)//get msg from server to leave room - admin disconnected
+        {
+            if (msgFromServer[0] != (char)DeserializeMessageCode.GET_GAME_RESULT_CODE)
             {
                 return false;
             }

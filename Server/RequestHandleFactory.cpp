@@ -67,6 +67,21 @@ GameRequestHandler* RequestHandleFactory::createGameRequestHandler(LoggedUser us
 	return game;
 }
 
+GameRequestHandler* RequestHandleFactory::createGameRequestHandler(LoggedUser user, string roomName)
+{
+	Game* g = this->m_gameManager.getGameByName(this->m_roomManager.getRoomByName(roomName).getRoomData().name);
+	if (g == nullptr)
+	{
+		throw RequestError();
+	}
+	
+	g->insertPlayer(user.getUserName());
+
+	GameRequestHandler* game = new GameRequestHandler(*this, *g, user);
+	
+	return game;
+}
+
 GameManager& RequestHandleFactory::getGameManager()
 {
 	return this->m_gameManager;
