@@ -15,9 +15,10 @@ namespace clientGuiTrivia
         private CancellationTokenSource cts = new CancellationTokenSource();
         private static readonly object lockSocket = new object();
         private Task task = null;
-
-        public AdminWaitingRoom(string user, int maxPlayers, int numQuestions, float timePerQuestion, string roomName, ClientHandler clientHandler)
+        private int timePerQuestion;
+        public AdminWaitingRoom(string user, int maxPlayers, int numQuestions, int timePerQuestion, string roomName, ClientHandler clientHandler)
         {
+            this.timePerQuestion = timePerQuestion;
             username = user;
             this.maxQuestions = numQuestions;
             InitializeComponent();
@@ -83,7 +84,7 @@ namespace clientGuiTrivia
             }
             if (Deserializer.desirializeStartGameResponse(msgReceived))
             {
-                GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions,true);
+                GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions,true,this.timePerQuestion);
                 //if the admin start game
                 game.Show();
                 this.Close();
@@ -155,7 +156,7 @@ namespace clientGuiTrivia
             if (Deserializer.desirializeServerAnswerToAdminStartGameRequest(msgReceived))
             {
                 // get into game
-                var frm2 = new GameQuestions(username, clientHandler,this.maxQuestions,true);//admin page
+                var frm2 = new GameQuestions(username, clientHandler,this.maxQuestions,true,this.timePerQuestion);//admin page
                 frm2.Show();
                 this.Close();
                 return;

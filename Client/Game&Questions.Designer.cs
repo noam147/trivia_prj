@@ -79,7 +79,7 @@
             this.timeToQuestionLabel.AutoSize = true;
             this.timeToQuestionLabel.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.timeToQuestionLabel.ForeColor = System.Drawing.Color.Purple;
-            this.timeToQuestionLabel.Location = new System.Drawing.Point(629, 87);
+            this.timeToQuestionLabel.Location = new System.Drawing.Point(608, 87);
             this.timeToQuestionLabel.Name = "timeToQuestionLabel";
             this.timeToQuestionLabel.Size = new System.Drawing.Size(231, 26);
             this.timeToQuestionLabel.TabIndex = 3;

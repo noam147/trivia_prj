@@ -20,7 +20,7 @@ namespace clientGuiTrivia
         private ClientHandler clientHandler;
         private int numPlayers;
         private int maxQuestions;
-
+        private int timePerQuestion;
         private CancellationTokenSource cts = new CancellationTokenSource();
         private static readonly object lockSocket = new object();
         private Task task = null;
@@ -69,7 +69,7 @@ namespace clientGuiTrivia
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
-                            GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions,false);
+                            GameQuestions game = new GameQuestions(username, this.clientHandler, this.maxQuestions,false,this.timePerQuestion);
                             //if the admin start game
                             game.Show();
                             this.Close();
@@ -86,7 +86,7 @@ namespace clientGuiTrivia
                     {
                         this.roomSettingsLabel.Text = "number of questions: " + roomData.AnswerCount.ToString() + ", time per question: " + roomData.answerTimeOut.ToString();
                         string selectedItem = UsersList.SelectedItem?.ToString();
-
+                        this.timePerQuestion = roomData.answerTimeOut;
                         UsersList.Items.Clear();
                         foreach (var user in roomData.players)
                         {
@@ -107,10 +107,16 @@ namespace clientGuiTrivia
             catch (TaskCanceledException)
             {
                 Console.WriteLine("Task was canceled.");
+                this.Invoke((MethodInvoker)delegate { leaveAction(); });
+
+                return;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Unexpected error: {ex.Message}");
+                this.Invoke((MethodInvoker)delegate { leaveAction(); });
+
+                return;
             }
         }
        

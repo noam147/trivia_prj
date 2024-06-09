@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static JsonDeserialzierHelper.JsonDeserializerHelper;
@@ -17,15 +18,30 @@ namespace clientGuiTrivia
         private string username;
         private ClientHandler clientHandler;
         private bool isAdmin;
-        public GameQuestions(string user, ClientHandler clientHandler, int maxQuestion,bool isAdmin)
+        private int timePerQuestion;
+
+        private CancellationTokenSource cts = new CancellationTokenSource();
+        private static readonly object lockSocket = new object();
+        private Task task = null;
+        public GameQuestions(string user, ClientHandler clientHandler, int maxQuestion,bool isAdmin,int time)
         {
+            this.timePerQuestion = time;
             this.isAdmin = isAdmin;
             this.username = user;
             this.clientHandler = clientHandler;
 
             InitializeComponent();
+            this.timeToQuestionLabel.Text = time.ToString();
             this.NumberOfRightQuestions.Text = "0";
             this.NumberOfQuestionLeft.Text = maxQuestion.ToString();
+
+
+            // Ensure the FormClosing event is attached
+            this.FormClosing += Game_FormClosing;
+
+            // Start the task
+            this.task = Task.Run(() => updateTimer(cts.Token));
+
             //send get question request
             getQuestion();
         }
@@ -60,6 +76,7 @@ namespace clientGuiTrivia
             }
             else if (question.status == 0)
             {
+                timeToQuestionLabel.Text = this.timePerQuestion.ToString();
                 //display the question
                 this.questionLabel.Text = question.question;
                 this.answer1.Text = question.answers[0];
@@ -118,6 +135,72 @@ namespace clientGuiTrivia
         private void timeToQuestionLabel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private async Task updateTimer(CancellationToken token)
+        {
+            try
+            {
+                while (!token.IsCancellationRequested)
+                {
+                    Console.WriteLine("Task running...");
+
+                    while (!(this.IsHandleCreated)) // runs untill ready to refresh
+                    {
+                        continue;
+                    }
+
+                    //update next second
+                    Console.WriteLine("updating");
+                    Invoke((MethodInvoker)delegate
+                    {
+                        this.timeToQuestionLabel.Text = (int.Parse(timeToQuestionLabel.Text) - 1).ToString();
+                        if (int.Parse(timeToQuestionLabel.Text) == 0)
+                        {
+                            timeToQuestionLabel.Text = this.timePerQuestion.ToString();
+                            //sendAnswerToSrever(-1);//this will be in server
+                            getQuestion();//server auto send a fake answer request so we will get another question
+                        }
+
+                    });
+                    await Task.Delay(1000, token); // wait 1000 milisecondes = 1 second 
+
+
+
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("Task was canceled.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+            }
+        }
+
+        private async void Game_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cts.Cancel();
+            if (task != null)
+            {
+                try
+                {
+                    await task; // Await the task instead of blocking
+                }
+                catch (TaskCanceledException)
+                {
+                    Console.WriteLine("Task was canceled.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Unexpected error: {ex.Message}");
+                }
+            }
         }
     }
 }
