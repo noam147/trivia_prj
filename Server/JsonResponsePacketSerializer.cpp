@@ -240,11 +240,22 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetQuestionResponse 
     if (gqRes.status == END_QUESTIONS)
     {
         codeMsg = ERROR_RESPONSE;//game end = can't ask for question
-        return "{}";
+        std::string msg;
+        msg += codeMsg;
+        msg += "{}";
+        return msg;
     }
     if (gqRes.status == KEEP_QUESTIONS)
     {
         codeMsg = GET_QUESTION_RESPONSE_SUCCESS;
+    }
+    if (gqRes.status == DO_NOT_READY_FOR_NEXT_QUESTION)
+    {
+        codeMsg = NOT_READY_FOR_QUESTION_YET;
+        std::string msg;
+        msg += codeMsg;
+        msg += "{}";
+        return msg;
     }
     if (gqRes.answers.size() != 4)//if there are not 4 answers
     {

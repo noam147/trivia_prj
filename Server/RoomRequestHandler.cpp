@@ -61,8 +61,9 @@ RequestResult RoomRequestHandler::getRoomState(RequestInfo request)
 	if (this->m_room.getRoomData().isActive == true)
 	{
 		RequestResult r;
-		r.newHandler = (IRequestHandler*)m_handlerFactory.createGameRequestHandler(this->m_user,this->m_room.getRoomData().name); // give the game handler to member
 		r.response = JsonResponsePacketSerializer::serializeResponse(START_GAME_RESPONSE_SUCCESS);
+		r.newHandler = (IRequestHandler*)m_handlerFactory.createGameRequestHandler(this->m_user,this->m_room.getRoomData().name); // give the game handler to member
+		
 		return r;
 
 	}

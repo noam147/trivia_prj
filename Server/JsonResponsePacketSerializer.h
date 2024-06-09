@@ -9,6 +9,7 @@
 #include "userDetalis.h"
 #include "CommunicationHelper.h"
 
+#define DO_NOT_READY_FOR_NEXT_QUESTION -3
 #define END_QUESTIONS -1
 #define KEEP_QUESTIONS 0
 

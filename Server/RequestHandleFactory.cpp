@@ -63,7 +63,7 @@ GameRequestHandler* RequestHandleFactory::createGameRequestHandler(LoggedUser us
 	//throw RequestError();//until be fixed...
 
 	Game* g = this->m_gameManager.createGame(this->m_roomManager.getRoom(user.getRoomId()),this->m_database);//check the get room id
-	GameRequestHandler* game = new GameRequestHandler(*this,*g,user);
+	GameRequestHandler* game = new GameRequestHandler(*this,*g,user, this->m_roomManager.getRoom(user.getRoomId()).getRoomData().timePerQuestion);
 	return game;
 }
 
@@ -77,7 +77,7 @@ GameRequestHandler* RequestHandleFactory::createGameRequestHandler(LoggedUser us
 	
 	g->insertPlayer(user.getUserName());
 
-	GameRequestHandler* game = new GameRequestHandler(*this, *g, user);
+	GameRequestHandler* game = new GameRequestHandler(*this, *g, user,this->m_roomManager.getRoomByName(roomName).getRoomData().timePerQuestion);
 	
 	return game;
 }

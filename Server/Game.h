@@ -12,12 +12,14 @@ struct GameData
 	unsigned int correctAnswerCount;
 	unsigned int wrongAnswerCount;
 	float averageAnswerTime;
+	bool isAnswerCurrentQuestion;
 	bool isPlayerFinishAnswerAllTheQuestions;
 	GameData(Question q)// for question constructor
 		: currentQuestion(q),
 		correctAnswerCount(0),
 		wrongAnswerCount(0),
 		averageAnswerTime(0),
+		isAnswerCurrentQuestion(true),//start from true
 		isPlayerFinishAnswerAllTheQuestions(false) {}
 };
 class Game
@@ -32,6 +34,8 @@ public:
 	bool checkIfAllPlayersFinishToAnswer();//for game result
 	std::map<string, GameData> getPlayersAndData();
 	void deleteDict();
+
+	bool checkIfAllPlayersAnsweredCurrentQuestion();
 	void insertPlayer(std::string user);
 private:
 	void submitGameStatsToDB(GameData gamedata,std::string username);

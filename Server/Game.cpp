@@ -13,16 +13,23 @@ Game::Game(std::vector<Question> questions, std::vector<string> usersInRoom, IDa
 
 Question Game::getQuestionForUser(string user)
 {
+	
 	try
 	{
 
 
 		GameData& current = this->m_players->find(user)->second;
+		
+
 		if (current.isPlayerFinishAnswerAllTheQuestions == true)//if player trying to ask multiple time when alredy finished
 		{
 			return Question("-1", std::vector<string>(), END_QUESTIONS);
 		}
+		std::cout << "get into question user is: " << user << "\n";
+		current.isAnswerCurrentQuestion = false;
+		return current.currentQuestion;//update questions in answer
 
+		/*
 		if (m_questions.size() - 1 < current.correctAnswerCount + current.wrongAnswerCount)//if the questions ended
 		{
 			//check to prevent multiply request to db
@@ -32,7 +39,7 @@ Question Game::getQuestionForUser(string user)
 			return Question("-1", std::vector<string>(), END_QUESTIONS);
 		}
 		current.currentQuestion = this->m_questions[current.correctAnswerCount + current.wrongAnswerCount];
-		return current.currentQuestion;
+		return current.currentQuestion;*/
 	}
 	catch (...)
 	{
@@ -43,6 +50,7 @@ Question Game::getQuestionForUser(string user)
 RequestResult Game::submitAnswer(SendAnswerMessageFields userAnswer,std::string username)
 {
 	GameData& currgameData = this->m_players->find(username)->second;
+	std::cout << "got into submit answer user is: " << username << "index is: "<<userAnswer.answerIndex<<"\n";
 	if (currgameData.isPlayerFinishAnswerAllTheQuestions == true)
 	{
 		throw RequestError();
@@ -51,6 +59,7 @@ RequestResult Game::submitAnswer(SendAnswerMessageFields userAnswer,std::string 
 	SubmitAnswerResponse submit;
 	RequestResult r;
 	r.newHandler = nullptr;
+	currgameData.isAnswerCurrentQuestion = true;
 	if (this->m_players->find(username)->second.currentQuestion.getCorrectAnswerId() == userAnswer.answerIndex)
 	{
 		submit.hasUserAnswerRight = true;
@@ -60,6 +69,17 @@ RequestResult Game::submitAnswer(SendAnswerMessageFields userAnswer,std::string 
 	{
 		submit.hasUserAnswerRight = false;
 		currgameData.wrongAnswerCount++;
+	}
+	
+	if (currgameData.wrongAnswerCount + currgameData.correctAnswerCount == m_questions.size())
+	{
+		this->m_players->find(username)->second.isPlayerFinishAnswerAllTheQuestions = true;
+		currgameData.averageAnswerTime /= this->m_questions.size();//get the avg of answer time
+		this->submitGameStatsToDB(currgameData, username);
+	}
+	else
+	{
+		currgameData.currentQuestion = this->m_questions[currgameData.correctAnswerCount + currgameData.wrongAnswerCount];
 	}
 	r.response = JsonResponsePacketSerializer::serializeResponse(submit);
 	
@@ -112,7 +132,24 @@ std::map<string, GameData> Game::getPlayersAndData()
 
 void Game::deleteDict()
 {
-	delete this->m_players;
+	if (this->m_players != nullptr)
+	{
+		delete this->m_players;
+		m_players = nullptr;
+	}
+	
+}
+
+bool Game::checkIfAllPlayersAnsweredCurrentQuestion()
+{
+	for (auto it = this->m_players->begin(); it != m_players->end(); it++)
+	{
+		if (it->second.isAnswerCurrentQuestion == false)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void Game::insertPlayer(std::string user)
@@ -122,8 +159,6 @@ void Game::insertPlayer(std::string user)
 
 void Game::submitGameStatsToDB(GameData gamedata,std::string username)
 {
-
 	this->m_database->submitGameStatistics(gamedata, username);
 	//update in statistics table
-
 }

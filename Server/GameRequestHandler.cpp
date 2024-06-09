@@ -2,8 +2,15 @@
 
 
 
-GameRequestHandler::GameRequestHandler(RequestHandleFactory& handlerFacroty, Game& game, LoggedUser user):m_handlerFacroty(handlerFacroty),m_game(game),m_gameManager(handlerFacroty.getGameManager()),m_user(user)
+GameRequestHandler::GameRequestHandler(RequestHandleFactory& handlerFacroty, Game& game, LoggedUser user,int timePerQuestion):m_handlerFacroty(handlerFacroty),m_game(game),m_gameManager(handlerFacroty.getGameManager()),m_user(user)
 {
+    m_timePerQuestion = timePerQuestion;
+    this->initTime = timePerQuestion;
+    this->m_isUserAnsweredCurrQuestion = true;
+    this->m_destroyThread = false;
+    std::thread t(&GameRequestHandler::updateTime, this);
+    t.detach();
+    this->m_start = std::chrono::high_resolution_clock::now();
 }
 
 GameRequestHandler::~GameRequestHandler()
@@ -50,10 +57,37 @@ RequestResult GameRequestHandler::handleRequest(RequestInfo info)
 
 RequestResult GameRequestHandler::getQuestion(RequestInfo info)
 {
+    //wait until aLL PLAYER FINISH OR TIMER FINISHED - need to fix later
     RequestResult r;
-    r.newHandler = nullptr;
-    Question q = this->m_game.getQuestionForUser(this->m_user.getUserName());
     GetQuestionResponse getQuestion;
+    r.newHandler = nullptr;
+    //if time end- we want new question, if all players finish answer - we want new question
+    if (!m_isTimeEnd || !this->m_game.checkIfAllPlayersAnsweredCurrentQuestion())
+    {
+        std::vector<string> v;
+        v.push_back("fake"); v.push_back("fake"); v.push_back("fake"); v.push_back("fake");
+        getQuestion.question = "fake";
+        getQuestion.status = DO_NOT_READY_FOR_NEXT_QUESTION;
+        //maybe just send fake question?
+        r.response = JsonResponsePacketSerializer::serializeResponse(getQuestion);
+        return r;
+    }
+   
+    /*while (true)
+    {
+        //need to check ALL users answered curr question before continue
+        if (m_isTimeEnd || this->m_game.checkIfAllPlayersAnsweredCurrentQuestion())
+        {
+            //maybe just send fake question?
+            m_isTimeEnd = false;
+            break;
+        }
+    }*/
+    
+    Question q = this->m_game.getQuestionForUser(this->m_user.getUserName());
+    std::cout << q.getQuestion()<<"\n";
+    std::cout << q.getCorrectAnswerId() << "\n";
+   
     getQuestion.question = q.getQuestion();
     std::vector<std::string> answers = q.getPossibleAnswers();
 
@@ -66,17 +100,28 @@ RequestResult GameRequestHandler::getQuestion(RequestInfo info)
     {
         //need to check if need to create resultHandler? seem pretty useless..
         //maybe here send the getGameResults
+        //here cancel the thread
+        this->m_destroyThread = true;
         getQuestion.status = END_QUESTIONS;
     }
     r.response = JsonResponsePacketSerializer::serializeResponse(getQuestion);
    
 
-    this->m_start = std::chrono::high_resolution_clock::now();//set the timer
+    
     return r;
 }
 
 RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
 {
+    if (this->m_game.getPlayersAndData().find(this->m_user.getUserName())->second.isPlayerFinishAnswerAllTheQuestions)
+    {
+        this->m_destroyThread = true;
+        RequestResult r;
+        r.newHandler = nullptr;
+        r.response = JsonResponsePacketSerializer::serializeResponse(ERROR_RESPONSE);
+        return r;
+    }
+    this->m_timePerQuestion = this->initTime;
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> elapsed = end - m_start;
 
@@ -87,7 +132,11 @@ RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
     }
     SendAnswerMessageFields answerDetails;
     answerDetails =  JsonRequestPacketDeserializer::deserializeSubmitAnswerRequest(CommunicationHelper::stringToCharArr(msg));
+    std::cout << answerDetails.answerIndex << "\n";
     answerDetails.answerTime = static_cast<float>(elapsed.count());
+    m_isUserAnsweredCurrQuestion = true;
+    m_timePerQuestion = this->initTime;
+    this->m_start = std::chrono::high_resolution_clock::now();//set the timer after get another answer
     return this->m_game.submitAnswer(answerDetails, this->m_user.getUserName());
 }
 
@@ -135,4 +184,31 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
     r.response = JsonResponsePacketSerializer::serializeResponse(LEAVE_GAME_RESPONSE_SUCCESS);
     
     return r;
+}
+
+void GameRequestHandler::updateTime()
+{
+    while (true)
+    {
+       
+        for (int i = m_timePerQuestion; i > 0; i--)
+        {
+            m_timePerQuestion--;
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+        this->m_isTimeEnd = true;
+        std::cout << "time end!\n";
+        RequestInfo info;
+        //this->m_game.getPlayersAndData().find(this->m_user.getUserName())->second.currentQuestion.getCorrectAnswerId();
+        std::string msg = "00020{\"answerIndex\":-1}";
+        for (char ch : msg)
+        info.buffer.push_back(ch);
+        m_timePerQuestion = this->initTime;
+        if (this->m_destroyThread)
+        {
+            return;
+        }
+        this->submitAnswer(info);//send fake answer
+        
+    }
 }
