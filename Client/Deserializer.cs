@@ -126,6 +126,13 @@ namespace clientGuiTrivia
 
         public static Question desirializeGetQuestionResponse(string msg)
         {
+            if (msg[0] == (char)DeserializeMessageCode.NOT_READY_FOR_QUESTION_YET)
+            {
+                Question error = new Question();
+                error.question = "";
+                error.status = -3;
+                return error;
+            }
             if (msg[0] != (char)DeserializeMessageCode.GET_QUESTION_CODE)
             {
                 Question error = new Question();

@@ -54,12 +54,12 @@
             // questionsCountLabel
             // 
             this.questionsCountLabel.AutoSize = true;
-            this.questionsCountLabel.Font = new System.Drawing.Font("Showcard Gothic", 8F, System.Drawing.FontStyle.Bold);
+            this.questionsCountLabel.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.questionsCountLabel.ForeColor = System.Drawing.Color.Purple;
-            this.questionsCountLabel.Location = new System.Drawing.Point(128, 88);
+            this.questionsCountLabel.Location = new System.Drawing.Point(41, 87);
             this.questionsCountLabel.Name = "questionsCountLabel";
             this.questionsCountLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.questionsCountLabel.Size = new System.Drawing.Size(151, 20);
+            this.questionsCountLabel.Size = new System.Drawing.Size(184, 26);
             this.questionsCountLabel.TabIndex = 1;
             this.questionsCountLabel.Text = "questions left";
             // 
@@ -79,7 +79,7 @@
             this.timeToQuestionLabel.AutoSize = true;
             this.timeToQuestionLabel.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.timeToQuestionLabel.ForeColor = System.Drawing.Color.Purple;
-            this.timeToQuestionLabel.Location = new System.Drawing.Point(629, 87);
+            this.timeToQuestionLabel.Location = new System.Drawing.Point(608, 87);
             this.timeToQuestionLabel.Name = "timeToQuestionLabel";
             this.timeToQuestionLabel.Size = new System.Drawing.Size(231, 26);
             this.timeToQuestionLabel.TabIndex = 3;
@@ -156,11 +156,11 @@
             // NumberOfQuestionLeft
             // 
             this.NumberOfQuestionLeft.AutoSize = true;
-            this.NumberOfQuestionLeft.Font = new System.Drawing.Font("Showcard Gothic", 8F, System.Drawing.FontStyle.Bold);
+            this.NumberOfQuestionLeft.Font = new System.Drawing.Font("Showcard Gothic", 12F, System.Drawing.FontStyle.Bold);
             this.NumberOfQuestionLeft.ForeColor = System.Drawing.Color.Purple;
-            this.NumberOfQuestionLeft.Location = new System.Drawing.Point(54, 87);
+            this.NumberOfQuestionLeft.Location = new System.Drawing.Point(231, 87);
             this.NumberOfQuestionLeft.Name = "NumberOfQuestionLeft";
-            this.NumberOfQuestionLeft.Size = new System.Drawing.Size(68, 20);
+            this.NumberOfQuestionLeft.Size = new System.Drawing.Size(100, 30);
             this.NumberOfQuestionLeft.TabIndex = 9;
             this.NumberOfQuestionLeft.Text = "label2";
             // 
