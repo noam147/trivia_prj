@@ -155,8 +155,8 @@ namespace clientGuiTrivia
                         if (int.Parse(timeToQuestionLabel.Text) == 0)
                         {
                             timeToQuestionLabel.Text = this.timePerQuestion.ToString();
-                            //sendAnswerToSrever(-1);//this will be in server
-                            //getQuestion();//server auto send a fake answer request so we will get another question
+                            sendAnswerToSrever(-1);//this will be in server
+                            getQuestion();//server auto send a fake answer request so we will get another question
                         }
 
                     });
