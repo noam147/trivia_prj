@@ -124,7 +124,7 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
     this->m_user.setRoomId(-1);
     this->m_game.removePlayer(this->m_user.getUserName());
     r.newHandler = m_handlerFacroty.createMenuRequestHandler(m_user);
-
+   
     if (this->m_game.getPlayersAndData().empty())
     {
         m_game.deleteDict();

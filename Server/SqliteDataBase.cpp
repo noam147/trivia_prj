@@ -338,12 +338,11 @@ int SqliteDataBase::submitGameStatistics(GameData gamedata,std::string username)
 	//the statistic is on *all* the games combined
 	int sumAnswers = gamedata.correctAnswerCount + gamedata.wrongAnswerCount + this->getNumOfTotalAnswers(username);
 	int sumCorrectAnswers = this->getNumOfCorrectAnswers(username) + gamedata.correctAnswerCount;
-	this->getNumOfPlayerGames(username);
-
+	this->setNumberOfGames(this->getNumOfPlayerGames(username) + 1, username);//we update this each time game ended so it will be by 1 each time
 	//formula for sum- newTime/(sumOfGames includeing cuurent game) + sumBefore
 	float avgTimeForAnswer = gamedata.averageAnswerTime / this->getNumOfPlayerGames(username) + this->getPlayerAverageAnswerTime(username);
 	
-	this->setNumberOfGames(this->getNumOfPlayerGames(username)+1,username);//we update this each time game ended so it will be by 1 each time
+	
 	this->setNumOfCorrectAnswers(sumCorrectAnswers, username);
 	this->setNumOfTotalAnswers(sumAnswers, username);
 	this->setPlayerAverageAnswerTime(avgTimeForAnswer, username);
@@ -395,28 +394,28 @@ bool SqliteDataBase::createQuestionsTable()
 
 void SqliteDataBase::setNumberOfGames(int num,std::string username)
 {
-	string msg = "update statistics set numberOfGames = " + std::to_string(num) + " where username = "+username+";";
+	string msg = "update statistics set numberOfGames = " + std::to_string(num) + " where username = '"+username+"';";
 	const char* sqlStatement = msg.c_str();
 	execSqlCommand(sqlStatement, _db);
 }
 
 void SqliteDataBase::setPlayerAverageAnswerTime(float time, std::string username)
 {
-	string msg = "update statistics set avgTimeForAnswer = " + std::to_string(time) + " where username = " + username + ";";
+	string msg = "update statistics set avgTimeForAnswer = " + std::to_string(time) + " where username = '" + username + "';";
 	const char* sqlStatement = msg.c_str();
 	execSqlCommand(sqlStatement, _db);
 }
 
 void SqliteDataBase::setNumOfCorrectAnswers(int num, std::string username)
 {
-	string msg = "update statistics set numberOfRightAnswers = " + std::to_string(num) + " where username = " + username + ";";
+	string msg = "update statistics set numberOfRightAnswers = " + std::to_string(num) + " where username = '" + username + "';";
 	const char* sqlStatement = msg.c_str();
 	execSqlCommand(sqlStatement, _db);
 }
 
 void SqliteDataBase::setNumOfTotalAnswers(int num, std::string username)
 {
-	string msg = "update statistics set numberOfAnswers = " + std::to_string(num) + " where username = " + username + ";";
+	string msg = "update statistics set numberOfAnswers = " + std::to_string(num) + " where username = '" + username + "';";
 	const char* sqlStatement = msg.c_str();
 	execSqlCommand(sqlStatement, _db);
 }
