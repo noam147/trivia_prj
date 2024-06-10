@@ -5,7 +5,7 @@
 GameRequestHandler::GameRequestHandler(RequestHandleFactory& handlerFacroty, Game& game, LoggedUser user,int timePerQuestion):m_handlerFacroty(handlerFacroty),m_game(game),m_gameManager(handlerFacroty.getGameManager()),m_user(user)
 {
     m_timePerQuestion = timePerQuestion;
-    this->initTime = timePerQuestion;
+    this->m_initTime = timePerQuestion;
     this->m_isUserAnsweredCurrQuestion = true;
     this->m_destroyThread = false;
     std::thread t(&GameRequestHandler::updateTime, this);
@@ -59,10 +59,13 @@ RequestResult GameRequestHandler::getQuestion(RequestInfo info)
 {
     //wait until aLL PLAYER FINISH OR TIMER FINISHED - need to fix later
     RequestResult r;
+    string username = m_user.getUserName();
     GetQuestionResponse getQuestion;
     r.newHandler = nullptr;
     //if time end- we want new question, if all players finish answer - we want new question
-    if (!m_isTimeEnd || !this->m_game.checkIfAllPlayersAnsweredCurrentQuestion())
+    //the issue is that in time the admin gets question he alredy 'close' the option to get questions here
+    //if (!m_isTimeEnd || !this->m_game.checkIfAllPlayersAnsweredCurrentQuestion())
+    if (!m_isTimeEnd)
     {
         std::vector<string> v;
         v.push_back("fake"); v.push_back("fake"); v.push_back("fake"); v.push_back("fake");
@@ -71,6 +74,17 @@ RequestResult GameRequestHandler::getQuestion(RequestInfo info)
         //maybe just send fake question?
         r.response = JsonResponsePacketSerializer::serializeResponse(getQuestion);
         return r;
+    }
+    m_isTimeEnd = false;
+    {
+        std::lock_guard<std::mutex> lock(m_timer_mutex); // Lock the mutex
+        *m_timer_start = std::chrono::high_resolution_clock::now(); // Update the variable
+    }
+    std::cout << "update time now!\n";
+    {
+        std::lock_guard<std::mutex> lock(m_timer_mutex); // Lock the mutex
+        auto milliseconds_since_epoch = std::chrono::duration_cast<std::chrono::milliseconds>(this->m_timer_start->time_since_epoch()).count();
+        std::cout << "in gamemenu - not in thread- Milliseconds since epoch: " << milliseconds_since_epoch << std::endl;
     }
    
     /*while (true)
@@ -83,7 +97,7 @@ RequestResult GameRequestHandler::getQuestion(RequestInfo info)
             break;
         }
     }*/
-    
+    this->m_game.checkIfAllPlayersAnsweredCurrentQuestion();//for checking
     Question q = this->m_game.getQuestionForUser(this->m_user.getUserName());
     std::cout << q.getQuestion()<<"\n";
     std::cout << q.getCorrectAnswerId() << "\n";
@@ -101,6 +115,7 @@ RequestResult GameRequestHandler::getQuestion(RequestInfo info)
         //need to check if need to create resultHandler? seem pretty useless..
         //maybe here send the getGameResults
         //here cancel the thread
+        this->m_timer_start = nullptr;
         this->m_destroyThread = true;
         getQuestion.status = END_QUESTIONS;
     }
@@ -121,7 +136,22 @@ RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
         r.response = JsonResponsePacketSerializer::serializeResponse(ERROR_RESPONSE);
         return r;
     }
-    this->m_timePerQuestion = this->initTime;
+
+
+    m_isTimeEnd = true;
+    {
+        std::lock_guard<std::mutex> lock(m_timer_mutex); // Lock the mutex
+        *m_timer_start = std::chrono::high_resolution_clock::now(); // Update the variable
+    }
+    std::cout << "update time now!\n";
+    {
+        std::lock_guard<std::mutex> lock(m_timer_mutex); // Lock the mutex
+        auto milliseconds_since_epoch = std::chrono::duration_cast<std::chrono::milliseconds>(this->m_timer_start->time_since_epoch()).count();
+        std::cout << "in gamemenu - not in thread- Milliseconds since epoch: " << milliseconds_since_epoch << std::endl;
+    }
+
+
+   this->m_timePerQuestion = this->m_initTime;
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> elapsed = end - m_start;
 
@@ -135,7 +165,7 @@ RequestResult GameRequestHandler::submitAnswer(RequestInfo info)
     std::cout << answerDetails.answerIndex << "\n";
     answerDetails.answerTime = static_cast<float>(elapsed.count());
     m_isUserAnsweredCurrQuestion = true;
-    m_timePerQuestion = this->initTime;
+    m_timePerQuestion = this->m_initTime;
     this->m_start = std::chrono::high_resolution_clock::now();//set the timer after get another answer
     return this->m_game.submitAnswer(answerDetails, this->m_user.getUserName());
 }
@@ -186,15 +216,16 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
     return r;
 }
 
-void GameRequestHandler::updateTime()
+/*void GameRequestHandler::updateTime()
 {
     while (true)
     {
        
-        for (int i = m_timePerQuestion; i > 0; i--)
+        for (int i = m_timePerQuestion; i > 0;)
         {
             m_timePerQuestion--;
             std::this_thread::sleep_for(std::chrono::seconds(1));
+            i = m_timePerQuestion;
         }
         this->m_isTimeEnd = true;
         std::cout << "time end!\n";
@@ -203,12 +234,59 @@ void GameRequestHandler::updateTime()
         std::string msg = "00020{\"answerIndex\":-1}";
         for (char ch : msg)
         info.buffer.push_back(ch);
-        m_timePerQuestion = this->initTime;
+        m_timePerQuestion = this->m_initTime;
         if (this->m_destroyThread)
         {
             return;
         }
-        this->submitAnswer(info);//send fake answer
+        //this->submitAnswer(info);//send fake answer
         
     }
 }
+*/
+
+void GameRequestHandler::updateTime() 
+{
+    while (true)
+    {
+        if (m_timer_start == nullptr)
+        {
+            return;
+        }
+        *m_timer_start = std::chrono::high_resolution_clock::now();
+        while (true)
+        {
+            {
+                std::lock_guard<std::mutex> lock(m_timer_mutex); // Lock the mutex
+                auto milliseconds_since_epoch = std::chrono::duration_cast<std::chrono::milliseconds>(this->m_timer_start->time_since_epoch()).count();
+                std::cout << "Milliseconds since epoch: " << milliseconds_since_epoch << std::endl;
+            }
+            auto currentTime = std::chrono::high_resolution_clock::now();
+            auto elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(currentTime - *this->m_timer_start).count();
+            if (elapsedTime >= m_initTime)
+            {
+                m_isTimeEnd = true;
+                std::cout << "Time's up!\n";
+
+                RequestInfo info;
+                std::string msg = "00020{\"answerIndex\":-1}";
+                for (char ch : msg)
+                    info.buffer.push_back(ch);
+                if (this->m_destroyThread == true)
+                    return;
+                this->submitAnswer(info);
+
+                // Handle time-up logic here
+                // For example, send a fake answer or trigger the next question
+                // Ensure proper synchronization and error handling
+                break; // Exit the loop after time's up
+            }
+            //std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Sleep for 1 second
+           
+        }
+        if (this->m_destroyThread == true)
+            return;
+    }
+}
+
+

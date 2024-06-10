@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "RequestHandleFactory.h"
 #include <thread>
+#include <mutex>
 #include <condition_variable>
 #include <chrono>//for timer
 using namespace std::chrono;
@@ -21,8 +22,8 @@ private:
 	GameManager & m_gameManager;
 	RequestHandleFactory& m_handlerFacroty;
 	bool m_isTimeEnd = true;
-	int m_timePerQuestion;
-	int initTime;
+	std::atomic<int> m_timePerQuestion;
+	int m_initTime;
 	bool m_isUserAnsweredCurrQuestion;
 	RequestResult getQuestion(RequestInfo info);
 	RequestResult submitAnswer(RequestInfo info);
@@ -30,6 +31,16 @@ private:
 	RequestResult leaveGame(RequestInfo info);
 
 	void updateTime();
-	bool m_destroyThread;
+	std::chrono::time_point<std::chrono::high_resolution_clock>* m_timer_start = new std::chrono::time_point<std::chrono::high_resolution_clock>(std::chrono::high_resolution_clock::now());
+	std::atomic<bool> m_destroyThread;
+	std::condition_variable m_cv;
+	std::mutex m_timer_mutex;
 
+	struct FriendLambda {
+		GameRequestHandler& handler;
+		FriendLambda(GameRequestHandler& h) : handler(h) {}
+		bool operator()() const {
+			return handler.m_timePerQuestion == handler.m_initTime || handler.m_destroyThread;
+		}
+	};
 };
