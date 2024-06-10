@@ -15,6 +15,7 @@ namespace clientGuiTrivia
 {
     public partial class GameQuestions : Form
     {
+        private bool isFinished = false;
         private string username;
         private ClientHandler clientHandler;
         private bool isAdmin;
@@ -32,7 +33,7 @@ namespace clientGuiTrivia
 
             InitializeComponent();
             this.NumberOfRightQuestions.Text = "0";
-            this.NumberOfQuestionLeft.Text = maxQuestion.ToString();
+            this.NumberOfQuestionLeft.Text = (maxQuestion-1).ToString();
             this.timeToQuestionLabel.Text = timePerQuestion.ToString();
             // Ensure the FormClosing event is attached
             this.FormClosing += Game_FormClosing;
@@ -84,6 +85,7 @@ namespace clientGuiTrivia
         }
         private void sendAnswerToSrever(int indexAnswer)
         {
+            this.timeToQuestionLabel.Text = this.timePerQuestion.ToString();
             SendAnswerMessageFields answer = new SendAnswerMessageFields();
             answer.answerIndex = indexAnswer;
             string msg = Serializer.serialize(answer);
@@ -153,10 +155,19 @@ namespace clientGuiTrivia
                     {
                         this.timeToQuestionLabel.Text = (int.Parse(timeToQuestionLabel.Text) - 1).ToString();
                         if (int.Parse(timeToQuestionLabel.Text) == 0)
+                        
                         {
-                            timeToQuestionLabel.Text = this.timePerQuestion.ToString();
-                            sendAnswerToSrever(-1);//this will be in server
-                            getQuestion();//server auto send a fake answer request so we will get another question
+                            if(!isFinished)
+                            {
+                                timeToQuestionLabel.Text = this.timePerQuestion.ToString();
+                                sendAnswerToSrever(-1);//this will be in server
+                                if(this.NumberOfQuestionLeft.Text != "-1" && this.NumberOfQuestionLeft.Text != "")
+                                {
+                                    getQuestion();//server auto send a fake answer request so we will get another question
+                                }
+                            }
+                                
+                            
                         }
 
                     });
@@ -178,6 +189,7 @@ namespace clientGuiTrivia
 
         private async void Game_FormClosing(object sender, FormClosingEventArgs e)
         {
+            isFinished = true;
             cts.Cancel();
             if (task != null)
             {
