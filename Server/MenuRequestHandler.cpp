@@ -72,13 +72,36 @@ RequestResult MenuRequestHandler::signout(RequestInfo info)
 
 RequestResult MenuRequestHandler::getRooms(RequestInfo info)
 {
-    RequestResult r;
-    //r.newHandler = new MenuRequestHandler(this->m_handlerFactory, this->m_user.getUserName());
+	RequestResult r;
+	//r.newHandler = new MenuRequestHandler(this->m_handlerFactory, this->m_user.getUserName());
 	r.newHandler = nullptr;
-    GetRoomResponse gr;
-    gr.roomList = this->m_handlerFactory.getRoomManager().getRooms();
-    r.response = JsonResponsePacketSerializer::serializeResponse(gr);
-    return r;
+	GetRoomResponse gr;
+	gr.roomList = this->m_handlerFactory.getRoomManager().getRooms();
+	bool flag = false;
+	while (true)
+	{
+		for (auto it = gr.roomList.begin(); it != gr.roomList.end(); it++)
+		{
+			if (it->isActive == true)
+			{
+				gr.roomList.erase(it);
+				break;
+
+			}
+			flag = true;//when we finish erase all needed			
+		}
+		if (flag || gr.roomList.empty())
+		{
+			r.response = JsonResponsePacketSerializer::serializeResponse(gr);
+			return r;
+		}
+
+
+	}
+
+
+	r.response = JsonResponsePacketSerializer::serializeResponse(gr);
+	return r;
 }
 
 RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
