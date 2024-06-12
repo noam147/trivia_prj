@@ -77,10 +77,12 @@ void Game::removePlayer(string user)
 		{
 			if(!it->second.isPlayerFinishAnswerAllTheQuestions)//if we did not insert it into db
 				this->submitGameStatsToDB(it->second,user);//it->second is user's game data
-			this->m_players->erase(it);
-			return;
+			//this->m_players->erase(it);
 		}
 	}
+	this->m_players->find(user)->second.averageAnswerTime /= this->m_players->find(user)->second.correctAnswerCount + this->m_players->find(user)->second.wrongAnswerCount;
+	this->m_players->find(user)->second.isPlayerFinishAnswerAllTheQuestions = true;
+	
 }
 
 int Game::getGameId() const
