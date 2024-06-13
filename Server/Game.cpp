@@ -80,6 +80,7 @@ void Game::removePlayer(string user)
 			//this->m_players->erase(it);
 		}
 	}
+	this->m_players->find(user)->second.hasLeaved = true;
 	this->m_players->find(user)->second.averageAnswerTime /= this->m_players->find(user)->second.correctAnswerCount + this->m_players->find(user)->second.wrongAnswerCount;
 	this->m_players->find(user)->second.isPlayerFinishAnswerAllTheQuestions = true;
 	
@@ -114,12 +115,29 @@ std::map<string, GameData> Game::getPlayersAndData()
 
 void Game::deleteDict()
 {
-	delete this->m_players;
+	if (m_players != nullptr)
+	{
+		this->m_players->clear();
+		delete this->m_players;
+		this->m_players = nullptr;
+	}
 }
 
 void Game::insertPlayer(std::string user)
 {
 	this->m_players->insert(std::make_pair(user, GameData(m_questions[0])));
+}
+
+bool Game::checkIfEveryOneLeft() const
+{
+	for (auto it = this->m_players->begin(); it != m_players->end(); it++)
+	{
+		if (it->second.hasLeaved == false)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void Game::submitGameStatsToDB(GameData gamedata,std::string username)

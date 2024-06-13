@@ -115,6 +115,7 @@ RequestResult GameRequestHandler::getGameResults(RequestInfo info)
         playerSum.results.push_back(p);
     }
     r.response = JsonResponsePacketSerializer::serializeResponse(playerSum);
+    leaveGame(info);
     return r;
 }
 
@@ -125,8 +126,9 @@ RequestResult GameRequestHandler::leaveGame(RequestInfo info)
     this->m_game.removePlayer(this->m_user.getUserName());
     r.newHandler = m_handlerFacroty.createMenuRequestHandler(m_user);
    
-    if (this->m_game.getPlayersAndData().empty())
+    if (this->m_game.checkIfEveryOneLeft())
     {
+        cout << "delete game";
         m_game.deleteDict();
         this->m_gameManager.deleteGame(this->m_game.getGameId());
        
