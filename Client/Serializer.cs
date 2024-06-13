@@ -19,6 +19,14 @@ namespace clientGuiTrivia
             Console.WriteLine("login message: " + msg);
             return msg;
         }
+        public static string serialize(banPlayerMessageFields lmf)
+        {
+            string msg = JsonConvert.SerializeObject(lmf, Formatting.Indented);
+            addLength(ref msg);
+            msg = ((char)SerializeMessageCode.GET_BAN_PLAYER_CODE) + msg;
+            Console.WriteLine("ban player message: " + msg);
+            return msg;
+        }
         public static string serialize(signupMessageFields smf)
         {
             string msg = JsonConvert.SerializeObject(smf, Formatting.Indented);

@@ -34,6 +34,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.joinButton = new System.Windows.Forms.Button();
             this.RoomsList = new System.Windows.Forms.ListBox();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -53,7 +54,7 @@
             this.label2.Size = new System.Drawing.Size(95, 29);
             this.label2.TabIndex = 1;
             this.label2.Text = "Rooms";
-            //
+            // 
             // button2
             // 
             this.button2.FlatAppearance.BorderSize = 0;
@@ -93,12 +94,22 @@
             this.RoomsList.Name = "RoomsList";
             this.RoomsList.Size = new System.Drawing.Size(210, 406);
             this.RoomsList.TabIndex = 6;
-            this.RoomsList.SelectedIndexChanged += new System.EventHandler(RoomsList_SelectedIndexChanged);
+            this.RoomsList.SelectedIndexChanged += new System.EventHandler(this.RoomsList_SelectedIndexChanged);
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.ForeColor = System.Drawing.Color.IndianRed;
+            this.errorLabel.Location = new System.Drawing.Point(54, 168);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(0, 29);
+            this.errorLabel.TabIndex = 7;
             // 
             // JoinRoomPage
             // 
             this.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.ClientSize = new System.Drawing.Size(928, 744);
+            this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.RoomsList);
             this.Controls.Add(this.joinButton);
             this.Controls.Add(this.button2);
@@ -120,5 +131,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button joinButton;
         private System.Windows.Forms.ListBox RoomsList;
+        private System.Windows.Forms.Label errorLabel;
     }
 }

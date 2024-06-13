@@ -146,6 +146,7 @@ namespace clientGuiTrivia
             this.banButton.TabIndex = 8;
             this.banButton.Text = "ban";
             this.banButton.UseVisualStyleBackColor = true;
+            this.banButton.Click += new System.EventHandler(this.banButton_Click);
             // 
             // adminWaitingRoom
             // 

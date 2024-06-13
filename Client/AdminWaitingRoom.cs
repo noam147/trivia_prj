@@ -229,5 +229,17 @@ namespace clientGuiTrivia
             clientHandler.receiveMsg();
         }
 
+        private void banButton_Click(object sender, EventArgs e)
+        {
+            banPlayerMessageFields banPlayer = new banPlayerMessageFields();
+            banPlayer.playerToBan = this.UsersList.SelectedIndex.ToString();
+            banPlayer.playerToBan = UsersList.SelectedItem?.ToString();
+            if (banPlayer.playerToBan == this.username)
+            {
+                return;
+            }
+            clientHandler.sendMsg(Serializer.serialize(banPlayer));
+            clientHandler.receiveMsg();
+        }
     }
 }
