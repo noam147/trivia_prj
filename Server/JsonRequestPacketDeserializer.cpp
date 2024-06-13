@@ -229,3 +229,12 @@ SendAnswerMessageFields JsonRequestPacketDeserializer::deserializeSubmitAnswerRe
     }
     return answerData;
 }
+
+kickPlayerMessageFields JsonRequestPacketDeserializer::deserializeKickPlayerRequest(std::string msg)
+{
+    std::string jsonMsg = msg.substr(5);
+    json j = json::parse(jsonMsg);
+    kickPlayerMessageFields k;
+    k.playerToKick = j["playerToKick"];
+    return k;
+}

@@ -35,7 +35,10 @@ typedef struct
 	int answerIndex;
 	float answerTime;
 } SendAnswerMessageFields;
-
+struct kickPlayerMessageFields
+{
+	std::string playerToKick;
+};
 class JsonRequestPacketDeserializer
 {
 public:
@@ -46,6 +49,8 @@ public:
 	static CreateRoomRequest deserializeCreateRoomRequest(const char* buffer);
 	static AddQuestionToDB deserializeAddQuestionRequest(const char* buffer);
 	static SendAnswerMessageFields deserializeSubmitAnswerRequest(const char* buffer);
+
+	static kickPlayerMessageFields deserializeKickPlayerRequest(std::string msg);
 private:
 
 };

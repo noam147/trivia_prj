@@ -20,9 +20,11 @@ public:
 	std::vector<std::string> getAllUsers();
 	RoomData getRoomData();//add this, func wasn't in uml
 	void startGame(LoggedUser user);
+	bool isUserInRoom(std::string user);
 private:
 	RoomData m_metadata;
 	std::vector<LoggedUser> m_users;
+	std::vector<LoggedUser> m_banned_users;
 	LoggedUser m_owner; //maybe need to add?
 
 };

@@ -39,9 +39,9 @@ RequestResult RoomRequestHandler::getRoomState(RequestInfo request)
 		//for member:
 		//check if admin closed room:
 		RequestResult r;
+		this->m_user.setRoomId(-1);
 		r.newHandler = m_handlerFactory.createMenuRequestHandler(this->m_user);
 		r.response = JsonResponsePacketSerializer::serializeResponse(LEAVE_ROOM_RESPONSE_SUCCESS);
-		this->m_user.setRoomId(-1);
 		return r;
 	}
 	
@@ -49,14 +49,17 @@ RequestResult RoomRequestHandler::getRoomState(RequestInfo request)
 //for member:
 //check if admin closed room:
 	m_user.setRoomId(this->m_room.getRoomData().id);
-	if (!this->m_roomManager.isRoomExsist(this->m_room.getRoomData().id))//if room closed
+	//check if user got kick/ban - when he is not in room: or room doesnt exsist
+	if (!this->m_roomManager.isRoomExsist(this->m_room.getRoomData().id) || !this->m_room.isUserInRoom(this->m_user.getUserName()))//if room closed
 	{
 		RequestResult r;
+		this->m_user.setRoomId(-1);
 		r.newHandler = m_handlerFactory.createMenuRequestHandler(this->m_user);
 		r.response = JsonResponsePacketSerializer::serializeResponse(LEAVE_ROOM_RESPONSE_SUCCESS);
-		this->m_user.setRoomId(-1);
 		return r;
 	}
+
+
 	//check if admin start room: (can not delete this becaue we have to get a new handler)
 	if (this->m_room.getRoomData().isActive == true)
 	{

@@ -47,3 +47,15 @@ void Room::startGame(LoggedUser user)
 	}
 	
 }
+
+bool Room::isUserInRoom(std::string user)
+{
+	for (auto it = this->m_users.begin(); it != this->m_users.end(); it++)
+	{
+		if (it->getUserName() == user)
+		{
+			return true;
+		}
+	}
+	return false;
+}

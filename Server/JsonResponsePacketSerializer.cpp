@@ -210,6 +210,7 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse
 
     return updateMsg;
 }
+
 std::string JsonResponsePacketSerializer::serializeResponse(GetGameResultsResponse grRes)
 {
     json j;
