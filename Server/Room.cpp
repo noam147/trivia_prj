@@ -59,3 +59,30 @@ bool Room::isUserInRoom(std::string user)
 	}
 	return false;
 }
+
+void Room::addUserToBanList(std::string owner, LoggedUser user)
+{
+	if (this->m_owner.getUserName() == owner)
+	{
+		this->m_banned_users.push_back(user);
+	}
+	
+}
+
+void Room::clearRoomMemory()
+{
+	this->m_banned_users.clear();
+	this->m_users.clear();
+}
+
+bool Room::checkIfUserBanned(std::string user)
+{
+	for (auto it = this->m_banned_users.begin(); it != this->m_banned_users.end(); it++)
+	{
+		if (it->getUserName() == user)
+		{
+			return true;
+		}
+	}
+	return false;
+}

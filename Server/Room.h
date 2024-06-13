@@ -21,6 +21,9 @@ public:
 	RoomData getRoomData();//add this, func wasn't in uml
 	void startGame(LoggedUser user);
 	bool isUserInRoom(std::string user);
+	void addUserToBanList(std::string owner,LoggedUser user);
+	void clearRoomMemory();
+	bool checkIfUserBanned(std::string user);
 private:
 	RoomData m_metadata;
 	std::vector<LoggedUser> m_users;

@@ -238,3 +238,12 @@ kickPlayerMessageFields JsonRequestPacketDeserializer::deserializeKickPlayerRequ
     k.playerToKick = j["playerToKick"];
     return k;
 }
+
+banPlayerMessageFields JsonRequestPacketDeserializer::deserializeBanPlayerRequest(std::string msg)
+{
+    std::string jsonMsg = msg.substr(5);
+    json j = json::parse(jsonMsg);
+    banPlayerMessageFields b;
+    b.playerToBan = j["playerToBan"];
+    return b;
+}

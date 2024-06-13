@@ -170,10 +170,12 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 	
 	Room& roomToJoin = this->m_handlerFactory.getRoomManager().getRoomByName(jrRequest.roomname);
 	//Room* roomToJoin =&( this->m_handlerFactory.getRoomManager().getRoomByName(jrRequest.roomname));
-	if (roomToJoin.getAllUsers().size() >= roomToJoin.getRoomData().maxPlayers)
+	if (roomToJoin.getAllUsers().size() >= roomToJoin.getRoomData().maxPlayers || roomToJoin.checkIfUserBanned(this->m_user.getUserName()))
 	{
 		r.newHandler = nullptr;
-		r.response = CommunicationHelper::createErrorResponse();
+		std::string msg = "size of players are max or you got banned";
+		ErrorResponse e = { msg };
+		r.response = JsonResponsePacketSerializer::serializeResponse(e);
 		return r;
 	}
 	this->m_user.setRoomId(roomToJoin.getRoomData().id);

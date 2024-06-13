@@ -39,6 +39,10 @@ struct kickPlayerMessageFields
 {
 	std::string playerToKick;
 };
+struct banPlayerMessageFields
+{
+	std::string playerToBan;
+};
 class JsonRequestPacketDeserializer
 {
 public:
@@ -51,6 +55,7 @@ public:
 	static SendAnswerMessageFields deserializeSubmitAnswerRequest(const char* buffer);
 
 	static kickPlayerMessageFields deserializeKickPlayerRequest(std::string msg);
+	static banPlayerMessageFields deserializeBanPlayerRequest(std::string msg);
 private:
 
 };

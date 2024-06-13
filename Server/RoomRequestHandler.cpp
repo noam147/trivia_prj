@@ -46,6 +46,7 @@ RequestResult RoomRequestHandler::getRoomState(RequestInfo request)
 	}
 	
 
+
 //for member:
 //check if admin closed room:
 	m_user.setRoomId(this->m_room.getRoomData().id);
