@@ -1,13 +1,15 @@
-﻿using System;
+﻿using JsonSerialzierHelper;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static JsonDeserialzierHelper.JsonDeserializerHelper;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace clientGuiTrivia
 {
-    public partial class AdminWaitingRoom : Form
+    public partial class adminWaitingRoom : Form
     {
         private int maxQuestions;
         private string username;
@@ -16,12 +18,17 @@ namespace clientGuiTrivia
         private static readonly object lockSocket = new object();
         private Task task = null;
         private int timePerQuestion;
-        public AdminWaitingRoom(string user, int maxPlayers, int numQuestions, int timePerQuestion, string roomName, ClientHandler clientHandler)
+        public adminWaitingRoom(string user, int maxPlayers, int numQuestions, int timePerQuestion, string roomName, ClientHandler clientHandler)
         {
+           
             this.timePerQuestion = timePerQuestion;
             username = user;
             this.maxQuestions = numQuestions;
             InitializeComponent();
+
+            this.kickButton.Enabled = false;
+            this.banButton.Enabled = false;
+
             this.label7.Text = "max players: " + maxPlayers + ", number of questions: " + numQuestions + ", time for each question: " + timePerQuestion;
             this.label6.Text = "you are connected to room: " + roomName;
             this.clientHandler = clientHandler;
@@ -193,6 +200,34 @@ namespace clientGuiTrivia
 
         private void AdminWaitingRoom_Load(object sender, EventArgs e) { }
 
-        private void UsersList_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void UsersList_SelectedIndexChanged(object sender, EventArgs e) 
+        {
+            string selectedItem = UsersList.SelectedItem?.ToString();
+            if (selectedItem != null && selectedItem != this.username)
+            {
+                UsersList.SelectedItem = selectedItem;
+                kickButton.Enabled = true;
+                banButton.Enabled = true;
+            }
+            else
+            {
+                kickButton.Enabled=false;
+                banButton.Enabled=false;
+            }
+        }
+
+        private void kickButton_Click(object sender, EventArgs e)
+        {
+            kickPlayerMessageFields kickPlayer = new kickPlayerMessageFields();
+            kickPlayer.playerToKick = this.UsersList.SelectedIndex.ToString();
+            kickPlayer.playerToKick = UsersList.SelectedItem?.ToString();
+            if(kickPlayer.playerToKick == this.username)
+            {
+                return;
+            }
+            clientHandler.sendMsg(Serializer.serialize(kickPlayer));
+            clientHandler.receiveMsg();
+        }
+
     }
 }

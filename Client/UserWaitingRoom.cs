@@ -81,26 +81,18 @@ namespace clientGuiTrivia
                     {
                         continue;
                     }
-                    
-                    this.Invoke((MethodInvoker)delegate
+                    if(this.InvokeRequired)
                     {
-                        this.timePerQuestion = roomData.answerTimeOut;
-                        this.roomSettingsLabel.Text = "number of questions: " + roomData.AnswerCount.ToString() + ", time per question: " + roomData.answerTimeOut.ToString();
-                        string selectedItem = UsersList.SelectedItem?.ToString();
-
-                        UsersList.Items.Clear();
-                        foreach (var user in roomData.players)
+                        this.Invoke((MethodInvoker)delegate
                         {
-                            this.UsersList.Items.Add(user);
-                        }
+                            this.UpdateRoomDataInternal(roomData);
+                        });
 
-                        if (selectedItem != null && roomData.players.Contains(selectedItem))
-                        {
-                            UsersList.SelectedItem = selectedItem;
-                        }
-
-                        this.UsersList.Refresh();
-                    });
+                    }
+                    else
+                    {
+                        this.UpdateRoomDataInternal(roomData);
+                    }
 
                     await Task.Delay(1000, token);
                 }
@@ -114,7 +106,26 @@ namespace clientGuiTrivia
                 Console.WriteLine($"Unexpected error: {ex.Message}");
             }
         }
-       
+
+        private void UpdateRoomDataInternal(RoomState roomData)
+        {
+            this.timePerQuestion = roomData.answerTimeOut;
+            this.roomSettingsLabel.Text = "number of questions: " + roomData.AnswerCount.ToString() + ", time per question: " + roomData.answerTimeOut.ToString();
+            string selectedItem = UsersList.SelectedItem?.ToString();
+
+            UsersList.Items.Clear();
+            foreach (var user in roomData.players)
+            {
+                this.UsersList.Items.Add(user);
+            }
+
+            if (selectedItem != null && roomData.players.Contains(selectedItem))
+            {
+                UsersList.SelectedItem = selectedItem;
+            }
+
+            this.UsersList.Refresh();
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             leaveAction();

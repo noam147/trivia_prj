@@ -32,6 +32,7 @@ namespace JsonSerialzierHelper
         GET_GET_QUESTION_CODE,//18
         LEAVE_GAME_REQUEST,
         GET_GAME_RESULT_CODE,
+        GET_KICK_PLAYER_CODE,
         //CLOSE_ROOM_CODE,
         //START_GAME_CODE,
         //GET_ROOM_STATE_CODE,
@@ -47,7 +48,10 @@ namespace JsonSerialzierHelper
         public string username;
         public string password;
     }
-
+    public struct kickPlayerMessageFields
+    {
+        public string playerToKick { get; set; }
+    }
     public struct signupMessageFields
     {
         public string username;
