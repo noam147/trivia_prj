@@ -15,7 +15,6 @@ bool LoginManager::signUp(std::string username, std::string password, std::strin
 	}
 	else
 	{
-
 		return this->m_dataBase->addNewUser(username, password, email);//if the adding done good- returns true
 	}
 	return true;
@@ -53,4 +52,9 @@ void LoginManager::logOut(std::string username)
 			return;
 		}
 	}
+}
+
+bool LoginManager::isUserExsist(std::string username)
+{
+	return m_dataBase->doesUserxsist(username);
 }

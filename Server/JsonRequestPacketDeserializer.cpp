@@ -247,3 +247,27 @@ banPlayerMessageFields JsonRequestPacketDeserializer::deserializeBanPlayerReques
     b.playerToBan = j["playerToBan"];
     return b;
 }
+
+int JsonRequestPacketDeserializer::deserializeEmailVerRequest(std::string msg)
+{
+    int code = 0;
+    try
+    {
+        std::string jsonMsg = msg.substr(5);
+        json j = json::parse(jsonMsg);
+        if (j["emailCode"].is_number_integer()) 
+        {
+            int code = j["emailCode"];
+            return code;
+         }
+        else
+        {
+            throw RequestError();
+        }
+    }
+        catch (...)
+        {
+            throw RequestError();
+        }
+  
+}

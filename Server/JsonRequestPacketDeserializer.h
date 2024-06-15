@@ -56,6 +56,8 @@ public:
 
 	static kickPlayerMessageFields deserializeKickPlayerRequest(std::string msg);
 	static banPlayerMessageFields deserializeBanPlayerRequest(std::string msg);
+
+	static int deserializeEmailVerRequest(std::string msg);
 private:
 
 };
