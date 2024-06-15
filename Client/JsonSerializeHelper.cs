@@ -34,6 +34,7 @@ namespace JsonSerialzierHelper
         GET_GAME_RESULT_CODE,
         GET_KICK_PLAYER_CODE,
         GET_BAN_PLAYER_CODE,
+        GET_EMAIL_VARAFICATION_CODE,
         //CLOSE_ROOM_CODE,
         //START_GAME_CODE,
         //GET_ROOM_STATE_CODE,
@@ -52,6 +53,10 @@ namespace JsonSerialzierHelper
     public struct kickPlayerMessageFields
     {
         public string playerToKick { get; set; }
+    }
+    public struct emailVerMessageFields
+    {
+        public int emailCode { get; set; }
     }
     public struct banPlayerMessageFields
     {

@@ -30,7 +30,7 @@ namespace JsonDeserialzierHelper
             LEAVE_ROOM_CODE,
             GET_SERVER_ANSWER_TO_ADMIN_START_GAME_REQUEST_SUCSEES,
             GET_SERVER_ANSWER_TO_ADMIN_LEAVE_GAME_REQUEST_SUCSEES,
-
+            EMAIL_SUCCSEES_CODE,
 
             //
             //

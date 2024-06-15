@@ -47,6 +47,14 @@ namespace clientGuiTrivia
             }
             return true;
         }
+        public static bool desirializeEmailVerafictionRequest(string msgFromServer)//get msg from server to leave room - admin disconnected
+        {
+            if (msgFromServer[0] != (char)DeserializeMessageCode.EMAIL_SUCCSEES_CODE)
+            {
+                return false;
+            }
+            return true;
+        }
         public static bool desirializeServerAnswerToAdminLeaveGameRequest(string msgFromServer)//get msg from server to leave room - admin disconnected
         {
             if (msgFromServer[0] != (char)DeserializeMessageCode.GET_SERVER_ANSWER_TO_ADMIN_LEAVE_GAME_REQUEST_SUCSEES)

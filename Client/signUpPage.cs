@@ -29,25 +29,39 @@ namespace clientGuiTrivia
             //frm.ShowDialog();
         }
 
-        private void signUpSenderButton_Click(object sender, EventArgs e)
+        private async void signUpSenderButton_Click(object sender, EventArgs e)
         {
-            //send request to server 
-            string senderName = sender.ToString();
-            //string msg = Serlazer
-            signupMessageFields signupMessageFields = new signupMessageFields();
-            signupMessageFields.username = this.textBox1.Text;
-            signupMessageFields.password = this.textBox2.Text;
-            signupMessageFields.email = this.textBox3.Text;
-            string msg = Serializer.serialize(signupMessageFields);
-            clientHandler.sendMsg(msg);
-            string msgFromServer = clientHandler.receiveMsg();
-            if(Deserializer.desirializeSignupResponse(msgFromServer))
+            // Update the label text immediately
+            this.warningLabel.Text = "checking info...";
+
+            // Perform the time-consuming operations asynchronously
+            bool isSignUpSuccessful = await Task.Run(() =>
             {
-                MainScreen mainScreen = new MainScreen(clientHandler);
+                string senderName = sender.ToString();
+                signupMessageFields signupMessageFields = new signupMessageFields
+                {
+                    username = this.textBox1.Text,
+                    password = this.textBox2.Text,
+                    email = this.textBox3.Text
+                };
+                string msg = Serializer.serialize(signupMessageFields);
+                clientHandler.sendMsg(msg);
+                string msgFromServer = clientHandler.receiveMsg();
+                return Deserializer.desirializeSignupResponse(msgFromServer);
+            });
+
+            // Handle the result on the UI thread
+            if (isSignUpSuccessful)
+            {
+                EmailVerafication email = new EmailVerafication(clientHandler);
+                email.Show();
                 this.Close();
-                mainScreen.Show();
             }
-            this.warningLabel.Text = "user name already exsist or other problem occured.\ntry put another username";//for example
+            else
+            {
+                this.warningLabel.Text = "User name already exists or another problem occurred.\nPlease try another username.";
+            }
         }
+
     }
 }

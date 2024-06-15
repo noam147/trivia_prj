@@ -158,10 +158,10 @@ namespace clientGuiTrivia
             // warningLabel
             // 
             this.warningLabel.AutoSize = true;
+            this.warningLabel.Font = new System.Drawing.Font("Miriam Fixed", 14F, System.Drawing.FontStyle.Bold);
             this.warningLabel.Location = new System.Drawing.Point(166, 34);
             this.warningLabel.Name = "warningLabel";
-            this.warningLabel.Size = new System.Drawing.Size(15, 26);
-            this.warningLabel.TabIndex = 9;
+            this.warningLabel.TabIndex = 1;
             this.warningLabel.Text = " ";
             // 
             // signUpPage
