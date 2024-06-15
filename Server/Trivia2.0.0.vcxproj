@@ -104,10 +104,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Magshimim\Desktop\CryptoppV8.9</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Magshimim\Desktop\CryptoppV8.9</AdditionalLibraryDirectories>
+      <AdditionalDependencies>C:\Users\Magshimim\Desktop\CryptoppV8.9\x64\Output\Debug\cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,12 +131,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AESCryptoAlgorithem.h" />
     <ClInclude Include="BaseException.hpp" />
     <ClInclude Include="CommunicationHelper.h" />
     <ClInclude Include="Communicator.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameRequestHandler.h" />
+    <ClInclude Include="ICryptoAlgorithem.h" />
     <ClInclude Include="IDataBase.h" />
     <ClInclude Include="IRequestHandler.h" />
     <ClInclude Include="json.hpp" />
@@ -160,6 +166,7 @@
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AESCryptoAlgorithem.cpp" />
     <ClCompile Include="CommunicationHelper.cpp" />
     <ClCompile Include="Communicator.cpp" />
     <ClCompile Include="Game.cpp" />

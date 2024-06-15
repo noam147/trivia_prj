@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-//using static ConsoleApp1Check.Program;
+
 
 namespace clientGuiTrivia
 {
@@ -47,16 +47,53 @@ namespace clientGuiTrivia
         }
         public void sendMsg(string msg)
         {
-            byte[] buffer = new ASCIIEncoding().GetBytes(msg);
-            //sending msg
+            char msgCode = msg[0];
+            msg = msg.Substring(1);
+
+            AesEncryption.Encrypt(ref msg);
+            addLength(ref msg);
+            msg = msgCode + msg;
+            byte[] buffer = Encoding.UTF8.GetBytes(msg);
+
             _clientStream.Write(buffer, 0, buffer.Length);
             _clientStream.Flush();
         }
+
+        public static void addLength(ref string msg)
+        {
+            int length = msg.Length;
+
+            string str = "0000";
+            char[] charArray = str.ToCharArray();
+            charArray[3] = (char)(length % 127);
+
+            charArray[3] = (char)(length % 127);
+            length /= 127;
+            charArray[2] = (char)(length % 127);
+            length /= 127;
+            charArray[1] = (char)(length % 127);
+            length /= 127;
+            charArray[0] = (char)(length % 127);
+            str = new string(charArray);
+            msg = str + msg;
+        }
+
         public string receiveMsg()
         {
-            byte[] buffer = new byte[4096];
-            int bytesRead = _clientStream.Read(buffer, 0, 4096);
-            return Encoding.ASCII.GetString(buffer);
+             byte[] code = new byte[1];
+            int bytesRead = _clientStream.Read(code, 0, 1);
+            byte[] lengthBuffer = new byte[4];
+            bytesRead = _clientStream.Read(lengthBuffer, 0, 4);
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(lengthBuffer);
+            int length = BitConverter.ToInt32(lengthBuffer, 0);
+            byte[] buffer = new byte[length];
+            bytesRead = _clientStream.Read(buffer, 0, length);
+            _clientStream.Flush();
+            string strBuffer = Encoding.UTF8.GetString(buffer);
+            string msg = AesEncryption.Decrypt(strBuffer);
+            msg = Encoding.UTF8.GetString(code) + length.ToString().PadLeft(4, '0') + msg;
+            return msg;
         }
         public void handleClient()
         {

@@ -72,7 +72,6 @@ namespace clientGuiTrivia
 
             char codeMsg = (char)JsonSerialzierHelper.SerializeMessageCode.GET_GAME_RESULT_CODE;
             string msgToSend = "{}";
-            Serializer.addLength(ref msgToSend);
             msgToSend = codeMsg + msgToSend;
             string msgReceived = "";
 

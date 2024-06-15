@@ -4,6 +4,7 @@
 #include "ServerConnectionError.hpp"
 #include "ServerOpenSocketError.hpp"
 #include "RequestHandleFactory.h"
+#include "AESCryptoAlgorithem.h"
 #include <exception>
 #include <iostream>
 #include <string>
@@ -18,7 +19,7 @@ using std::unique_lock;
 
 
 Communicator::Communicator()
-	:Server(),m_serverSocket(INVALID_SOCKET)
+	:Server(),m_serverSocket(INVALID_SOCKET),m_crypto(new AESCryptoAlgorithem)
 {
 	m_serverSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (m_serverSocket == INVALID_SOCKET)
@@ -32,6 +33,47 @@ Communicator::~Communicator()
 		::closesocket(m_serverSocket);
 	}
 	catch (...) {}
+	delete m_crypto;
+}
+
+std::string Communicator::addLengthToMsg(std::string msg)
+{
+	int length = msg.size();
+	std::string str(4, '\0');  // Initialize the string with four null characters
+
+	// Correct byte manipulation
+	str[3] = (char)(length & 0xFF);
+	length >>= 8;
+	str[2] = (char)(length & 0xFF);
+	length >>= 8;
+	str[1] = (char)(length & 0xFF);
+	length >>= 8;
+	str[0] = (char)(length & 0xFF);
+
+	return str + msg;
+}
+
+
+void Communicator::send(string msg, SOCKET client_sock)
+{
+	char msgCode = msg[0];
+	msg = msg.substr(1);
+	m_crypto->encrypt(msg);
+	msg = addLengthToMsg(msg);
+	msg = msgCode + msg;
+	CommunicationHelper::sendData(client_sock, msg);
+	std::cout << "message sent: " << msg << std::endl;
+
+}
+
+void Communicator::recive(SOCKET client_sock, string& msg)
+{
+	char codeMsg = ' ';
+	unsigned int message_length = CommunicationHelper::getLengthPartFromSocket(client_sock, sizeof(byte) * (MESSAGE_LENGTH + 1), codeMsg);
+	msg = CommunicationHelper::getPartFromSocket(client_sock, message_length);//problem with this
+	m_crypto->decrypt(msg);
+	msg = codeMsg + CommunicationHelper::getPaddedNumber(message_length, 4) + msg;//full msg
+	std::cout << "message recived: " << msg << std::endl;
 }
 
 
@@ -79,12 +121,7 @@ void Communicator::handleClient(SOCKET client_sock)
 	{
 		do
 		{
-			CommunicationHelper::sendData(client_sock, msgToSend);
-			msgToSend = "invalid msg";
-			char codeMsg = ' ';
-			unsigned int message_length = CommunicationHelper::getLengthPartFromSocket(client_sock, sizeof(byte) * (MESSAGE_LENGTH+1),codeMsg);
-			msg = CommunicationHelper::getPartFromSocket(client_sock, message_length);//problem with this
-			msg = codeMsg + CommunicationHelper::getPaddedNumber(message_length, 4) + msg;//full msg
+			recive(client_sock, msg);
 			RequestInfo info;
 			info.buffer = std::vector<char>(msg.begin(), msg.end());//get msg buffer
 			info.receivalTime = std::time(nullptr);//get current time
@@ -145,7 +182,8 @@ void Communicator::handleClient(SOCKET client_sock)
 				
 				
 			}
-			
+			send(msgToSend, client_sock);
+			msgToSend = "invalid msg";
 		}
 		while (msg != "exit");
 

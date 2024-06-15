@@ -61,6 +61,7 @@
     <Compile Include="AdminWaitingRoom.Designer.cs">
       <DependentUpon>AdminWaitingRoom.cs</DependentUpon>
     </Compile>
+    <Compile Include="AESEncryption.cs" />
     <Compile Include="bestScorePage.cs">
       <SubType>Form</SubType>
     </Compile>

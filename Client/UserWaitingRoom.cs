@@ -48,7 +48,6 @@ namespace clientGuiTrivia
 
                     char codeMsg = (char)JsonSerialzierHelper.SerializeMessageCode.GET_ROOM_STATE_CODE;
                     string msgToSend = "{}";
-                    Serializer.addLength(ref msgToSend);
                     msgToSend = codeMsg + msgToSend;
                     string msgReceived = "";
 
@@ -123,7 +122,6 @@ namespace clientGuiTrivia
         {
             char codeMsg = (char)JsonSerialzierHelper.SerializeMessageCode.GET_LEAVE_ROOM_CODE;
             string msgToSend = "{}";
-            Serializer.addLength(ref msgToSend);
             msgToSend = codeMsg + msgToSend;
             string msgReceived = "";
 

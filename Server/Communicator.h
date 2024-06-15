@@ -12,6 +12,8 @@
 #include "JsonRequestPacketDeserializer.h"
 #include "JsonResponsePacketSerializer.h"
 #include "LoginRequestHandler.h"
+#include "ICryptoAlgorithem.h"
+
 class Communicator:public Server
 {
 public:
@@ -27,8 +29,15 @@ private:
 	void bindAndListen(); // opens a listening socket
 	void handleClient(SOCKET sock); // handles client conversation
 	void acceptNewClients(); // handles client waiting for connection
+	void send(string msg, SOCKET client_sock);
+	void recive(SOCKET client_sock, string& msg);
+	std::string addLengthToMsg(std::string msg);
 
 	string checkIfLoginReturnUserName(string msg);
+	
+	// cryptography
+	ICryptoAlgorythem* m_crypto;
+	
 	// member variubles
 	std::unordered_map<SOCKET, IRequestHandler*> m_clients;
 	SOCKET m_serverSocket;
