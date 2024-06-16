@@ -229,3 +229,45 @@ SendAnswerMessageFields JsonRequestPacketDeserializer::deserializeSubmitAnswerRe
     }
     return answerData;
 }
+
+kickPlayerMessageFields JsonRequestPacketDeserializer::deserializeKickPlayerRequest(std::string msg)
+{
+    std::string jsonMsg = msg.substr(5);
+    json j = json::parse(jsonMsg);
+    kickPlayerMessageFields k;
+    k.playerToKick = j["playerToKick"];
+    return k;
+}
+
+banPlayerMessageFields JsonRequestPacketDeserializer::deserializeBanPlayerRequest(std::string msg)
+{
+    std::string jsonMsg = msg.substr(5);
+    json j = json::parse(jsonMsg);
+    banPlayerMessageFields b;
+    b.playerToBan = j["playerToBan"];
+    return b;
+}
+
+int JsonRequestPacketDeserializer::deserializeEmailVerRequest(std::string msg)
+{
+    int code = 0;
+    try
+    {
+        std::string jsonMsg = msg.substr(5);
+        json j = json::parse(jsonMsg);
+        if (j["emailCode"].is_number_integer()) 
+        {
+            int code = j["emailCode"];
+            return code;
+         }
+        else
+        {
+            throw RequestError();
+        }
+    }
+        catch (...)
+        {
+            throw RequestError();
+        }
+  
+}

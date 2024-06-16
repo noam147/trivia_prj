@@ -7,7 +7,7 @@ LoginRequestHandler::LoginRequestHandler(RequestHandleFactory& handlerFactory):m
 
 bool LoginRequestHandler::isRequestRelevant(RequestInfo info)
 {
-	if (info.buffer[0] == LOGIN_REQUEST || info.buffer[0] == SIGN_UP_REQUEST)
+	if (info.buffer[0] == LOGIN_REQUEST || info.buffer[0] == SIGN_UP_REQUEST||info.buffer[0] == EMAIL_VERAFICATION_REQUEST)
 	{
 		return true;
 	}
@@ -22,8 +22,11 @@ RequestResult LoginRequestHandler::handleRequest(RequestInfo info)
 		}
 		else if (info.buffer[0] == LOGIN_REQUEST)
 		{
-			
 			return this->login(info);
+		}
+		else if (info.buffer[0] == EMAIL_VERAFICATION_REQUEST)
+		{
+			return this->getEmailVerafication(info);
 		}
 
 }
@@ -106,13 +109,22 @@ RequestResult LoginRequestHandler::signup(RequestInfo info)
 		r.response = CommunicationHelper::createErrorResponse();
 		return r;
 	}
-	if (this->m_handlerFactory.getLoginManager().signUp(s.userName, s.password, s.email) == true)
+	if (this->m_handlerFactory.getLoginManager().isUserExsist(s.userName) == false)
 	{
-		r.newHandler = this->m_handlerFactory.createLoginRequestHandler();
+		//here we change it to email verf
+		this->m_email = s.email;
+		this->m_pass = s.password;
+		this->m_username = s.userName;
+		std::mt19937 rng(static_cast<unsigned long>(std::time(nullptr)));
+		std::uniform_int_distribution<std::mt19937::result_type> distribution(100000, 999999);
+		this->m_code = distribution(rng);
 		SignupResponse signResponse;
-		signResponse.status = SIGNUP_RESPONSE_SUCCESS;//change status?
+		r.newHandler = nullptr;
+		signResponse.status = SIGNUP_RESPONSE_SUCCESS;
 		r.response = JsonResponsePacketSerializer::serializeResponse(signResponse);
-		return r;
+		string msg = "python emailSendVerafication.py " + this->m_email + " "+std::to_string(m_code);
+		system(msg.c_str());//unsafe!
+		return r;//do not sign up right now
 	}
 	else//if the user name alredyexsist
 	{
@@ -123,5 +135,27 @@ RequestResult LoginRequestHandler::signup(RequestInfo info)
 		return r;
 	}
 
+}
+
+RequestResult LoginRequestHandler::getEmailVerafication(RequestInfo info)
+{
+	if (m_code == 0)
+	{
+		throw RequestError();//still didnt get signup msg
+	}
+	RequestResult r;
+	r.newHandler = nullptr;
+	r.response = JsonResponsePacketSerializer::serializeResponse(SIGN_UP_REQUEST_FAIL);
+	int code = 0;
+	string msg = "";
+	for (char ch : info.buffer)
+		msg += ch;
+	code = JsonRequestPacketDeserializer::deserializeEmailVerRequest(msg);
+	if (this->m_code == code)
+	{
+		this->m_handlerFactory.getLoginManager().signUp(m_username, m_pass, m_email);
+		r.response = JsonResponsePacketSerializer::serializeResponse(EMAIL_SUCCSEES);
+	}
+	return r;
 }
 

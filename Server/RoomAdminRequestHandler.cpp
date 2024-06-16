@@ -26,6 +26,10 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo info)
 	case CLOSE_ROOM_REQUEST:
 		return this->closeRoom(info);
 		break;
+	case KICK_REQUEST:
+		return this->kickPlayer(info);
+	case BAN_REQUEST:
+		return this->banPlayer(info);
 	default:
 		throw RequestError();
 	}
@@ -36,7 +40,7 @@ bool RoomAdminRequestHandler::isRequestRelevant(RequestInfo request)
 {
 
 	char codeMsg = request.buffer[0];
-	if (codeMsg == CLOSE_ROOM_REQUEST || codeMsg == START_GAME_REQUEST || codeMsg == GET_ROOM_STATE_REQUEST)
+	if (codeMsg == CLOSE_ROOM_REQUEST || codeMsg == START_GAME_REQUEST || codeMsg == GET_ROOM_STATE_REQUEST||codeMsg == KICK_REQUEST||codeMsg == BAN_REQUEST)
 		return true;
 	return false;
 }
@@ -61,6 +65,38 @@ RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo request)
 	r.newHandler = this->m_handlerFactory.createMenuRequestHandler(this->m_user);
 	r.response = JsonResponsePacketSerializer::serializeResponse(CLOSE_ROOM_RESPONSE_SUCCESS);
 	//now again the user is without room
+	return r;
+}
+
+RequestResult RoomAdminRequestHandler::kickPlayer(RequestInfo request)
+{
+	RequestResult r;
+	r.newHandler =nullptr;
+	r.response = JsonResponsePacketSerializer::serializeResponse(KICK_RESPONSE_SUCCESS);
+
+	std::string msg = "";
+	for (char ch : request.buffer)
+		msg += ch;
+	
+	string user = JsonRequestPacketDeserializer::deserializeKickPlayerRequest(msg).playerToKick;//user to kick
+	this->m_room.removeUser(user);
+
+	return r;
+}
+
+RequestResult RoomAdminRequestHandler::banPlayer(RequestInfo request)
+{
+	RequestResult r;
+	r.newHandler = nullptr;
+	r.response = JsonResponsePacketSerializer::serializeResponse(BAN_RESPONSE_SUCCESS);
+
+	std::string msg = "";
+	for (char ch : request.buffer)
+		msg += ch;
+
+	string user = JsonRequestPacketDeserializer::deserializeBanPlayerRequest(msg).playerToBan;//user to kick
+	this->m_room.removeUser(user);
+	m_room.addUserToBanList(this->m_user.getUserName(), user);
 	return r;
 }
 

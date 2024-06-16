@@ -97,6 +97,7 @@ namespace clientGuiTrivia
             }
             else
             {
+                this.errorLabel.Text = "size of players are max or you got banned";
                 //display error label
             }
         }

@@ -17,6 +17,7 @@ void RoomManager::deleteRoom(int ID)
     {
         if (it->second.getRoomData().id == ID)
         {
+            it->second.clearRoomMemory();
             m_rooms.erase(it);
             return;
         }

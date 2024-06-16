@@ -13,4 +13,6 @@ public:
 private:
 	RequestResult startGame(RequestInfo request);
 	RequestResult closeRoom(RequestInfo request);
+	RequestResult kickPlayer(RequestInfo request);
+	RequestResult banPlayer(RequestInfo request);
 };

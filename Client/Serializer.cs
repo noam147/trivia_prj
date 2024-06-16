@@ -19,12 +19,36 @@ namespace clientGuiTrivia
             Console.WriteLine("login message: " + msg);
             return msg;
         }
+        public static string serialize(banPlayerMessageFields lmf)
+        {
+            string msg = JsonConvert.SerializeObject(lmf, Formatting.Indented);
+            addLength(ref msg);
+            msg = ((char)SerializeMessageCode.GET_BAN_PLAYER_CODE) + msg;
+            Console.WriteLine("ban player message: " + msg);
+            return msg;
+        }
+        public static string serialize(emailVerMessageFields lmf)
+        {
+            string msg = JsonConvert.SerializeObject(lmf, Formatting.Indented);
+            addLength(ref msg);
+            msg = ((char)SerializeMessageCode.GET_EMAIL_VARAFICATION_CODE) + msg;
+            Console.WriteLine("email verafication message: " + msg);
+            return msg;
+        }
         public static string serialize(signupMessageFields smf)
         {
             string msg = JsonConvert.SerializeObject(smf, Formatting.Indented);
             addLength(ref msg);
             msg = ((char)SerializeMessageCode.SIGNUP_CODE) + msg;
             Console.WriteLine("signup message: " + msg);
+            return msg;
+        }
+        public static string serialize(kickPlayerMessageFields kmf)
+        {
+            string msg = JsonConvert.SerializeObject(kmf, Formatting.Indented);
+            addLength(ref msg);
+            msg = ((char)SerializeMessageCode.GET_KICK_PLAYER_CODE) + msg;
+            Console.WriteLine("kick player message: " + msg);
             return msg;
         }
         public static string serialize(logoutMessageFields lmf)

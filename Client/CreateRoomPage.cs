@@ -72,7 +72,7 @@ namespace clientGuiTrivia
             string msgRecived = clientHandler.receiveMsg();
             if(Deserializer.desirializeCreateRoomResponse(msgRecived))
             {
-                AdminWaitingRoom frm = new AdminWaitingRoom(this.username, numPlayers, numQuestions, time, roomName, clientHandler);
+                adminWaitingRoom frm = new adminWaitingRoom(this.username, numPlayers, numQuestions, time, roomName, clientHandler);
                 //this.Hide();
                 frm.Show();
                 this.Close();

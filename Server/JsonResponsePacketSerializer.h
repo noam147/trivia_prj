@@ -124,6 +124,7 @@ public:
 	static std::string serializeResponse(LeaveGameResponse lgRes); //: buffer
 	static std::string serializeResponse(GetRoomStateResponse grsRes);
 		
+	
 
 	static std::string serializeResponse(GetGameResultsResponse grRes);
 	static std::string serializeResponse(SubmitAnswerResponse sbRes);
