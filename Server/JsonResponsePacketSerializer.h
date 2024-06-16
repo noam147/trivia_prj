@@ -9,7 +9,6 @@
 #include "userDetalis.h"
 #include "CommunicationHelper.h"
 
-#define DO_NOT_READY_FOR_NEXT_QUESTION -3
 #define END_QUESTIONS -1
 #define KEEP_QUESTIONS 0
 
@@ -125,10 +124,13 @@ public:
 	static std::string serializeResponse(LeaveGameResponse lgRes); //: buffer
 	static std::string serializeResponse(GetRoomStateResponse grsRes);
 		
+	
 
 	static std::string serializeResponse(GetGameResultsResponse grRes);
 	static std::string serializeResponse(SubmitAnswerResponse sbRes);
 	static std::string serializeResponse(GetQuestionResponse gqRes);
-	static std::string serializeResponse(char codeMsg);//serialse succsess response	
+	static std::string serializeResponse(char codeMsg);//serialse succsess response
+private:
+	
 };
 

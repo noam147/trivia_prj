@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-
+//using static ConsoleApp1Check.Program;
 
 namespace clientGuiTrivia
 {
@@ -80,7 +80,7 @@ namespace clientGuiTrivia
 
         public string receiveMsg()
         {
-             byte[] code = new byte[1];
+            byte[] code = new byte[1];
             int bytesRead = _clientStream.Read(code, 0, 1);
             byte[] lengthBuffer = new byte[4];
             bytesRead = _clientStream.Read(lengthBuffer, 0, 4);
@@ -95,6 +95,7 @@ namespace clientGuiTrivia
             msg = Encoding.UTF8.GetString(code) + length.ToString().PadLeft(4, '0') + msg;
             return msg;
         }
+
         public void handleClient()
         {
             string msgToSend = "";

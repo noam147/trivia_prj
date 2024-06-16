@@ -20,9 +20,11 @@ std::string JsonResponsePacketSerializer::serializeResponse(ErrorResponse error)
     //json j = json::parse(R"({"message":"ERROR"})");
     json j = json::parse(msg);
     std::string jsonString = j.dump();//json to string
+
     char codeMsg = ERROR_RESPONSE;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
+
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(LoginResponse log)
@@ -33,8 +35,12 @@ std::string JsonResponsePacketSerializer::serializeResponse(LoginResponse log)
 
     std::string jsonString = j.dump();
     char codeMsg = log.status;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
+    return updateMsg;
+    //char* bytes = new char[updateMsg.size() + 1];
+    //strcpy_s(bytes, updateMsg.size() + 1, updateMsg.c_str());
+
+    //return bytes;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(SignupResponse sign)
@@ -43,8 +49,9 @@ std::string JsonResponsePacketSerializer::serializeResponse(SignupResponse sign)
     json j = json::parse(msg);
     std::string jsonString = j.dump();
     char codeMsg = sign.status;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
+
+    return updateMsg;
 }
 std::string JsonResponsePacketSerializer::serializeResponse(LogoutResponse sign)
 {
@@ -52,8 +59,9 @@ std::string JsonResponsePacketSerializer::serializeResponse(LogoutResponse sign)
     json j = json::parse(msg);
     std::string jsonString = j.dump();
     char codeMsg = sign.status;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
+
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse sign)
@@ -62,8 +70,9 @@ std::string JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse sig
     json j = json::parse(msg);
     std::string jsonString = j.dump();
     char codeMsg = JOIN_ROOM_RESPONSE_SUCCESS;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
+
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse sign)
@@ -72,8 +81,8 @@ std::string JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse s
     json j = json::parse(msg);
     std::string jsonString = j.dump();
     char codeMsg = CREATE_ROOM_RESPONSE_SUCCESS;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(GetRoomResponse sign)//change to see admin and players in room
@@ -86,8 +95,9 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetRoomResponse sign
     roomNames += "]";
     std::string jsonMsg = "{" + roomNames + "}";
     char codeMsg = GET_ROOM_RESPONSE_SUCCESS;
-    jsonMsg = codeMsg + jsonMsg;
-    return jsonMsg;
+    std::string updateMsg = codeMsg + jsonMsg;//add codemsg
+
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResponse sign)
@@ -100,8 +110,8 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetPlayersInRoomResp
     userNames += "]";
     std::string jsonMsg = "{" + userNames + "}";
     char codeMsg = GET_PLAYER_IN_ROOM_RESPONSE_SUCCESS;
-    jsonMsg = codeMsg + jsonMsg;
-    return jsonMsg;
+    std::string updateMsg = codeMsg + jsonMsg;//add codemsg
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(GetHighScoreResponse sign)
@@ -117,8 +127,8 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetHighScoreResponse
 
     std::string jsonMsg = "{" + HighScores + "}";
     char codeMsg = GET_HIGH_SCORE_RESPONSE_SUCCESS;
-    jsonMsg = codeMsg + jsonMsg;
-    return jsonMsg;
+    std::string updateMsg = codeMsg + jsonMsg;//add codemsg
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(GetPlayerStatisticsResponse sign)
@@ -133,18 +143,19 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetPlayerStatisticsR
 
     std::string jsonMsg = "{" + userStatistic + "}";
     char codeMsg = GET_PERSONAL_STAT_RESPONSE_SUCCESS;
-    jsonMsg = codeMsg + jsonMsg;
-    return jsonMsg;
+    std::string updateMsg = codeMsg + jsonMsg;//add codemsg
+    return updateMsg;
+   
 }
-
 std::string JsonResponsePacketSerializer::serializeResponse(CloseRoomResponse crRes)
 {
     std::string msg = "{\"status\":\"" + std::to_string(crRes.status) + "\"}";
     json j = json::parse(msg);
     std::string jsonString = j.dump();
     char codeMsg = CLOSE_ROOM_RESPONSE_SUCCESS;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
+
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(StartGameResponse sgRes)
@@ -153,8 +164,9 @@ std::string JsonResponsePacketSerializer::serializeResponse(StartGameResponse sg
     json j = json::parse(msg);
     std::string jsonString = j.dump();
     char codeMsg = START_GAME_RESPONSE_SUCCESS;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
+
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(LeaveGameResponse lgRes)
@@ -163,8 +175,9 @@ std::string JsonResponsePacketSerializer::serializeResponse(LeaveGameResponse lg
     json j = json::parse(msg);
     std::string jsonString = j.dump();
     char codeMsg = LEAVE_GAME_RESPONSE_SUCCESS;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
+
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse grsRes)
@@ -180,8 +193,9 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse
     // Serialize the JSON object to a string
     std::string jsonString = j.dump();
     char codeMsg = GET_ROOM_STATE_RESPONSE_SUCCESS;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
+    std::string updateMsg = codeMsg + jsonString; // Add code
+
+    return updateMsg;
 }
 
 std::string JsonResponsePacketSerializer::serializeResponse(GetGameResultsResponse grRes)
@@ -201,10 +215,10 @@ std::string JsonResponsePacketSerializer::serializeResponse(SubmitAnswerResponse
     j = json::parse(msg);
     std::string jsonString = j.dump();
     char codeMsg = SUBMIT_ANSWER_RESPONSE_SUCCESS;
-    jsonString = codeMsg + jsonString;
-    return jsonString;
-}
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
 
+    return updateMsg;
+}
 std::string JsonResponsePacketSerializer::serializeResponse(GetQuestionResponse gqRes)
 {
     char codeMsg = ':';
@@ -212,22 +226,11 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetQuestionResponse 
     if (gqRes.status == END_QUESTIONS)
     {
         codeMsg = ERROR_RESPONSE;//game end = can't ask for question
-        std::string msg;
-        msg += codeMsg;
-        msg += "{}";
-        return msg;
+        return "{}";
     }
     if (gqRes.status == KEEP_QUESTIONS)
     {
         codeMsg = GET_QUESTION_RESPONSE_SUCCESS;
-    }
-    if (gqRes.status == DO_NOT_READY_FOR_NEXT_QUESTION)
-    {
-        codeMsg = NOT_READY_FOR_QUESTION_YET;
-        std::string msg;
-        msg += codeMsg;
-        msg += "{}";
-        return msg;
     }
     if (gqRes.answers.size() != 4)//if there are not 4 answers
     {
@@ -237,10 +240,10 @@ std::string JsonResponsePacketSerializer::serializeResponse(GetQuestionResponse 
     std::string msg = "{\"status\":\"" + std::to_string(gqRes.status) + "\",\"question\":\""+gqRes.question+"\",\"answers\":\[\""+gqRes.answers.find(0)->second + "\",\"" + gqRes.answers.find(1)->second + "\",\"" + gqRes.answers.find(2)->second + "\",\"" + gqRes.answers.find(3)->second + "\"]}";
     json j = json::parse(msg);
     std::string jsonString = j.dump();
-    jsonString = codeMsg + jsonString;
-    return jsonString;
-}
+    std::string updateMsg = codeMsg + jsonString;//add codemsg
 
+    return updateMsg;
+}
 std::string JsonResponsePacketSerializer::serializeResponse(char codeMsg)
 {
     std::string msg = "{\"status\":\"" + std::to_string(codeMsg) + "\"}";

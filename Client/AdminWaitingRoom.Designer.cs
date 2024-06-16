@@ -2,7 +2,7 @@
 
 namespace clientGuiTrivia
 {
-    partial class AdminWaitingRoom
+    partial class adminWaitingRoom
     {
         /// <summary>
         /// Required designer variable.
@@ -36,6 +36,8 @@ namespace clientGuiTrivia
             this.startGmaeButton = new System.Windows.Forms.Button();
             this.UsersList = new System.Windows.Forms.ListBox();
             this.usersListLabel = new System.Windows.Forms.Label();
+            this.kickButton = new System.Windows.Forms.Button();
+            this.banButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label6
@@ -118,10 +120,40 @@ namespace clientGuiTrivia
             this.usersListLabel.TabIndex = 6;
             this.usersListLabel.Text = "Players";
             // 
-            // AdminWaitingRoom
+            // kickButton
+            // 
+            this.kickButton.FlatAppearance.BorderSize = 0;
+            this.kickButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.kickButton.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kickButton.ForeColor = System.Drawing.Color.Red;
+            this.kickButton.Location = new System.Drawing.Point(327, 120);
+            this.kickButton.Name = "kickButton";
+            this.kickButton.Size = new System.Drawing.Size(137, 60);
+            this.kickButton.TabIndex = 7;
+            this.kickButton.Text = "kick";
+            this.kickButton.UseVisualStyleBackColor = true;
+            this.kickButton.Click += new System.EventHandler(this.kickButton_Click);
+            // 
+            // banButton
+            // 
+            this.banButton.FlatAppearance.BorderSize = 0;
+            this.banButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.banButton.Font = new System.Drawing.Font("Showcard Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.banButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.banButton.Location = new System.Drawing.Point(327, 214);
+            this.banButton.Name = "banButton";
+            this.banButton.Size = new System.Drawing.Size(137, 60);
+            this.banButton.TabIndex = 8;
+            this.banButton.Text = "ban";
+            this.banButton.UseVisualStyleBackColor = true;
+            this.banButton.Click += new System.EventHandler(this.banButton_Click);
+            // 
+            // adminWaitingRoom
             // 
             this.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.ClientSize = new System.Drawing.Size(928, 744);
+            this.Controls.Add(this.banButton);
+            this.Controls.Add(this.kickButton);
             this.Controls.Add(this.usersListLabel);
             this.Controls.Add(this.UsersList);
             this.Controls.Add(this.startGmaeButton);
@@ -130,7 +162,7 @@ namespace clientGuiTrivia
             this.Controls.Add(this.label6);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Name = "AdminWaitingRoom";
+            this.Name = "adminWaitingRoom";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdminWaitingRoom_FormClosing);
             this.Load += new System.EventHandler(this.AdminWaitingRoom_Load);
             this.ResumeLayout(false);
@@ -147,5 +179,7 @@ namespace clientGuiTrivia
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.ListBox UsersList;
         private System.Windows.Forms.Label usersListLabel;
+        private System.Windows.Forms.Button kickButton;
+        private System.Windows.Forms.Button banButton;
     }
 }

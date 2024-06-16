@@ -5,6 +5,7 @@ import sys
 
 
 def send_email():
+    print("enter into")
     # Define the sender and recipient
     me = 'triviaproject@outlook.co.il'
     you = 'noam24@zvialod.com'

@@ -1,33 +1,6 @@
 #include "JsonRequestPacketDeserializer.h"
 #include <iostream>
 
-/*int main()
-{
-    json j = json::parse(R"({"username":"user1","password":"1234"})");//login request
-    std::string msgToSend = "4";//with start code to login
-    std::string jsonString = j.dump();
-    std::string updateMsg = JsonResponsePacketSerializer::addLengthToMsg(jsonString);
-    updateMsg = msgToSend + updateMsg;
-    char* bytes = new char[updateMsg.size() + 1];
-    strcpy_s(bytes, updateMsg.size() + 1, updateMsg.c_str());
-    LoginRequest e = JsonRequestPacketDeserializer::deserializeLoginRequest(bytes);
-    std::cout << e.userName << e.password << "\n";
-    ErrorResponse error;
-    error.message = "EEEERRRRORRRR";
-    JsonResponsePacketSerializer::serializeResponse(error);
-
-    j = json::parse(R"({"username":"user2","password":"0000","email":"something@gmail.com"})");//login request
-     msgToSend = "5";//with start code to login
-     jsonString = j.dump();
-     updateMsg = JsonResponsePacketSerializer::addLengthToMsg(jsonString);
-    updateMsg = msgToSend + updateMsg;
-     bytes = new char[updateMsg.size() + 1];
-    strcpy_s(bytes, updateMsg.size() + 1, updateMsg.c_str());
-    SignupRequest s = JsonRequestPacketDeserializer::deserializeSignupRequest(bytes);
-    std::cout << s.userName << s.password <<s.email <<"\n";
-    return 0;
-}*/
-
 LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(const char* buffer)
 {
     LoginRequest e;
@@ -228,4 +201,46 @@ SendAnswerMessageFields JsonRequestPacketDeserializer::deserializeSubmitAnswerRe
         throw RequestError();
     }
     return answerData;
+}
+
+kickPlayerMessageFields JsonRequestPacketDeserializer::deserializeKickPlayerRequest(std::string msg)
+{
+    std::string jsonMsg = msg.substr(5);
+    json j = json::parse(jsonMsg);
+    kickPlayerMessageFields k;
+    k.playerToKick = j["playerToKick"];
+    return k;
+}
+
+banPlayerMessageFields JsonRequestPacketDeserializer::deserializeBanPlayerRequest(std::string msg)
+{
+    std::string jsonMsg = msg.substr(5);
+    json j = json::parse(jsonMsg);
+    banPlayerMessageFields b;
+    b.playerToBan = j["playerToBan"];
+    return b;
+}
+
+int JsonRequestPacketDeserializer::deserializeEmailVerRequest(std::string msg)
+{
+    int code = 0;
+    try
+    {
+        std::string jsonMsg = msg.substr(5);
+        json j = json::parse(jsonMsg);
+        if (j["emailCode"].is_number_integer()) 
+        {
+            int code = j["emailCode"];
+            return code;
+         }
+        else
+        {
+            throw RequestError();
+        }
+    }
+        catch (...)
+        {
+            throw RequestError();
+        }
+  
 }

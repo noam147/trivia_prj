@@ -111,10 +111,10 @@
     <ClInclude Include="GameRequestHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ICryptoAlgorithem.h">
+    <ClInclude Include="AESCryptoAlgorithem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AESCryptoAlgorithem.h">
+    <ClInclude Include="ICryptoAlgorithem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

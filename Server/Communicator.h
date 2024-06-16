@@ -14,7 +14,7 @@
 #include "LoginRequestHandler.h"
 #include "ICryptoAlgorithem.h"
 
-class Communicator:public Server
+class Communicator :public Server
 {
 public:
 	//constructor + destructor
@@ -34,14 +34,14 @@ private:
 	std::string addLengthToMsg(std::string msg);
 
 	string checkIfLoginReturnUserName(string msg);
-	
+
 	// cryptography
 	ICryptoAlgorythem* m_crypto;
-	
+
 	// member variubles
 	std::unordered_map<SOCKET, IRequestHandler*> m_clients;
 	SOCKET m_serverSocket;
-	
+
 	// lockers
 	std::mutex m_mtx;
 	std::condition_variable m_condition;

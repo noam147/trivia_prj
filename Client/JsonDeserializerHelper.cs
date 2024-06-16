@@ -27,10 +27,10 @@ namespace JsonDeserialzierHelper
             GET_GAME_RESULT_CODE,
             SUBMIT_ANSWER_CODE,//65
             GET_QUESTION_CODE,
-            LEAVE_ROOM_CODE,    
-            NOT_READY_FOR_QUESTION_YET,
+            LEAVE_ROOM_CODE,
             GET_SERVER_ANSWER_TO_ADMIN_START_GAME_REQUEST_SUCSEES,
             GET_SERVER_ANSWER_TO_ADMIN_LEAVE_GAME_REQUEST_SUCSEES,
+            EMAIL_SUCCSEES_CODE,
 
             //
             //

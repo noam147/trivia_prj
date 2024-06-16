@@ -19,7 +19,7 @@ using std::unique_lock;
 
 
 Communicator::Communicator()
-	:Server(),m_serverSocket(INVALID_SOCKET),m_crypto(new AESCryptoAlgorithem)
+	:Server(), m_serverSocket(INVALID_SOCKET), m_crypto(new AESCryptoAlgorithem)
 {
 	m_serverSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (m_serverSocket == INVALID_SOCKET)
@@ -81,7 +81,7 @@ void Communicator::startHandleRequests()
 {
 
 	bindAndListen();
-	
+
 	std::thread tr(&Communicator::acceptNewClients, this);
 	tr.detach();
 	std::string cliStatment = "";
@@ -112,11 +112,11 @@ void Communicator::handleClient(SOCKET client_sock)
 {
 	std::string msg = "";
 	std::string msgToSend = "nothing to show here";
-	
+
 	IRequestHandler* currentStatus = this->m_handlerFactory_.createLoginRequestHandler();
 	//currentStatus = this->m_handlerFactory_.createRoomAdminRequestHandler(LoggedUser("1"),Room(RoomData()));
-	
-	this->m_clients.insert(std::make_pair(client_sock,currentStatus));
+
+	this->m_clients.insert(std::make_pair(client_sock, currentStatus));
 	try
 	{
 		do
@@ -163,7 +163,7 @@ void Communicator::handleClient(SOCKET client_sock)
 				{
 					std::cerr << "Caught BaseException: " << e.what() << std::endl;
 				}
-				catch(...)
+				catch (...)
 				{
 					std::exception_ptr exptr = std::current_exception(); // Capture the current exception
 					try {
@@ -179,13 +179,12 @@ void Communicator::handleClient(SOCKET client_sock)
 					}
 				}
 
-				
-				
+
+
 			}
 			send(msgToSend, client_sock);
 			msgToSend = "invalid msg";
-		}
-		while (msg != "exit");
+		} while (msg != "exit");
 
 	}
 	catch (const std::exception& e)
@@ -193,9 +192,9 @@ void Communicator::handleClient(SOCKET client_sock)
 		//::operator delete(currentStatus);
 		currentStatus->~IRequestHandler();
 		std::cout << "Error: " << e.what() << std::endl;
-		
+
 	}
-	
+
 	this->m_clients.erase(client_sock);
 	closesocket(client_sock);
 }
@@ -217,7 +216,7 @@ string Communicator::checkIfLoginReturnUserName(string msg)
 {
 	LoginRequest l;
 	try {
-	 l = JsonRequestPacketDeserializer::deserializeLoginRequest(msg.c_str());
+		l = JsonRequestPacketDeserializer::deserializeLoginRequest(msg.c_str());
 	}
 	catch (const RequestError& e)
 	{

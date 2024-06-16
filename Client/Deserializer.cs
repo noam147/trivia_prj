@@ -47,6 +47,14 @@ namespace clientGuiTrivia
             }
             return true;
         }
+        public static bool desirializeEmailVerafictionRequest(string msgFromServer)//get msg from server to leave room - admin disconnected
+        {
+            if (msgFromServer[0] != (char)DeserializeMessageCode.EMAIL_SUCCSEES_CODE)
+            {
+                return false;
+            }
+            return true;
+        }
         public static bool desirializeServerAnswerToAdminLeaveGameRequest(string msgFromServer)//get msg from server to leave room - admin disconnected
         {
             if (msgFromServer[0] != (char)DeserializeMessageCode.GET_SERVER_ANSWER_TO_ADMIN_LEAVE_GAME_REQUEST_SUCSEES)
@@ -126,13 +134,6 @@ namespace clientGuiTrivia
 
         public static Question desirializeGetQuestionResponse(string msg)
         {
-            if (msg[0] == (char)DeserializeMessageCode.NOT_READY_FOR_QUESTION_YET)
-            {
-                Question error = new Question();
-                error.question = "";
-                error.status = -3;
-                return error;
-            }
             if (msg[0] != (char)DeserializeMessageCode.GET_QUESTION_CODE)
             {
                 Question error = new Question();
