@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AE8D4137-58F5-43E7-9AF4-EE0606F36F01}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>clientGuiTrivia</RootNamespace>
+    <AssemblyName>clientGuiTrivia</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddNewQuestions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddNewQuestions.Designer.cs">
+      <DependentUpon>AddNewQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminWaitingRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminWaitingRoom.Designer.cs">
+      <DependentUpon>AdminWaitingRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="bestScorePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="bestScorePage.Designer.cs">
+      <DependentUpon>bestScorePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientHandler.cs" />
+    <Compile Include="CreateRoomPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateRoomPage.Designer.cs">
+      <DependentUpon>CreateRoomPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Deserializer.cs" />
+    <Compile Include="EmailVerafication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmailVerafication.Designer.cs">
+      <DependentUpon>EmailVerafication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Game&amp;Questions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Game&amp;Questions.Designer.cs">
+      <DependentUpon>Game&amp;Questions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameResultPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameResultPage.Designer.cs">
+      <DependentUpon>GameResultPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JoinRoomPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JoinRoomPage.Designer.cs">
+      <DependentUpon>JoinRoomPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JsonDeserializerHelper.cs" />
+    <Compile Include="JsonSerializeHelper.cs" />
+    <Compile Include="LoadingScreenPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoadingScreenPage.Designer.cs">
+      <DependentUpon>LoadingScreenPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="loggedUserPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="loggedUserPage.Designer.cs">
+      <DependentUpon>loggedUserPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo1.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Refresher.cs" />
+    <Compile Include="Serializer.cs" />
+    <Compile Include="startPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="startPage.Designer.cs">
+      <DependentUpon>startPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="signUpPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="signUpPage.Designer.cs">
+      <DependentUpon>signUpPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserStatusPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserStatusPage.Designer.cs">
+      <DependentUpon>UserStatusPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserWaitingRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserWaitingRoom.Designer.cs">
+      <DependentUpon>UserWaitingRoom.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddNewQuestions.resx">
+      <DependentUpon>AddNewQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminWaitingRoom.resx">
+      <DependentUpon>AdminWaitingRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bestScorePage.resx">
+      <DependentUpon>bestScorePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateRoomPage.resx">
+      <DependentUpon>CreateRoomPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmailVerafication.resx">
+      <DependentUpon>EmailVerafication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Game&amp;Questions.resx">
+      <DependentUpon>Game&amp;Questions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameResultPage.resx">
+      <DependentUpon>GameResultPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JoinRoomPage.resx">
+      <DependentUpon>JoinRoomPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadingScreenPage.resx">
+      <DependentUpon>LoadingScreenPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="loggedUserPage.resx">
+      <DependentUpon>loggedUserPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="startPage.resx">
+      <DependentUpon>startPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="signUpPage.resx">
+      <DependentUpon>signUpPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserStatusPage.resx">
+      <DependentUpon>UserStatusPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserWaitingRoom.resx">
+      <DependentUpon>UserWaitingRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Icons and Images\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
